@@ -31,8 +31,10 @@ def sha3_512(ctx):
     return hashed[:32], hashed[32:]
 
 
-def prf(byte_string, b):
+def prf(byte_string, b, eta=None):
     shake256 = SHAKE256.new(byte_string)
     shake256.update(b)
-    return shake256.read(64 * const.ETA)
+    return shake256.read(64 * (eta or const.ETA))
+
+
 

@@ -42,6 +42,7 @@ class NTT:
         :param f_cap: Array of NTT coefficients in Z_q (length 256).
         :return: Array of polynomial coefficients f in Z_q.
         """
+        assert len(f_cap) == 256, f"Length of f_cap must be 256. Not {len(f_cap)}."
         f = f_cap.copy()
         i = 127  # Start with the last zeta value for inverse NTT
         length = 2
@@ -79,6 +80,9 @@ class NTT:
         :param g_cap: Another element from T_q, coefficients for 128 mono-degree polynomial
         :return: Multiplication of these two elements
         """
+        assert len(f_cap) == 256 and len(g_cap) == 256, (f" Length of f_cap and g_cap must be 256. Not {len(f_cap)} and"
+                                                         f"{len(g_cap)}.")
+
         h_cap = [0] * 256
         for i in range(128):
             h_cap[2 * i], h_cap[2 * i + 1] = self._base_case_multiply(f_cap[2 * i], f_cap[2 * i + 1],
@@ -109,20 +113,21 @@ class NTT:
                 j += 1
         return a
 
-    def get_sample_polyCBD(self, byte_array):
+    def get_sample_polyCBD(self, byte_array, eta=None):
         """
             Samples a pseudorandom polynomial from the distribution D_eta(R_q).
+            :param eta: A constant that determines the distribution.
             :param byte_array: Byte array of size 64 * eta (input as a byte array).
-            :param q: Modulus for the field (default is 3329).
             :return: Array of polynomial coefficients f ∈ ℤ_256.
         """
-        expected_length = 64 * self.eta
+        eta = eta or self.eta
+        expected_length = 64 * eta
         assert len(byte_array) == expected_length, f"The byte array must be of length {expected_length} (64 * eta)."
 
         bit_array = bytes_to_bits(byte_array)
         f = [0] * 256
         for i in range(256):
-            x = sum(bit_array[2 * i * self.eta + j] for j in range(self.eta))
-            y = sum(bit_array[2 * i * self.eta + self.eta + j] for j in range(self.eta))
+            x = sum(bit_array[2 * i * eta + j] for j in range(eta))
+            y = sum(bit_array[2 * i * eta + eta + j] for j in range(eta))
             f[i] = (x - y) % self.q
         return f

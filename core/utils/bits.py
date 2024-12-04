@@ -1,3 +1,6 @@
+import core.constants as const
+
+
 def bits_to_bytes(bit_array):
     """
     Converts a bit array of length (multiple of 8) into a byte array.
@@ -68,6 +71,8 @@ def byte_decode(byte_array, d):
     if not (1 <= d <= 12):
         raise ValueError("d must be between 1 and 12.")
 
+    assert len(byte_array) == 32 * d, f"The byte array must be of length {32 * d}. Not {len(byte_array)}."
+
     bit_array = bytes_to_bits(byte_array)
 
     f = [0] * 256
@@ -75,8 +80,16 @@ def byte_decode(byte_array, d):
     for i in range(256):
         for j in range(d):
             f[i] += bit_array[i * d + j] * (2 ** j)
-        m = (2 ** d)
+        m = (2 ** d) if d < 12 else const.Q
         f[i] %= m
 
     return f
+
+
+def compress(vector, d):
+    return [round((2 ** d / const.Q) * x) % (2 ** d) for x in vector]
+
+
+def decompress(vector, d):
+    return [round((const.Q / (2 ** d)) * x) % const.Q for x in vector]
 
