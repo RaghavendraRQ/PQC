@@ -12,15 +12,11 @@ def sample_ntt(byte_array, q=3329):
     """
     assert len(byte_array) == 34, f"The byte array must be 34 bytes in length. Not {len(byte_array)}."
 
-    # Initialize XOF (using SHAKE128)
     shake = SHAKE128.new()
     shake.update(byte_array)
-
-    # Array to store the NTT coefficients
     a = [0] * 256
     j = 0
 
-    # Sampling loop
     while j < 256:
         # Get 3 fresh bytes from XOF
         c = shake.read(3)
@@ -53,7 +49,6 @@ def sample_poly_cbd(byte_array, eta, q=3329):
     assert len(byte_array) == expected_length, f"The byte array must be of length {expected_length} (64 * eta)."
 
     bit_array = bytes_to_bits(byte_array)
-    print(f'len(bit_array): {len(bit_array)}')
     f = [0] * 256
     for i in range(256):
         x = sum(bit_array[2 * i * eta + j] for j in range(eta))
