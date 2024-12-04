@@ -4,12 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="64dc7b8e-59ed-49f1-bf06-7d1335ead3e9" name="Changes" comment="implement ntt and ntt_inverse">
+    <list default="true" id="64dc7b8e-59ed-49f1-bf06-7d1335ead3e9" name="Changes" comment="Make NTT Class and moved all the related functions">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/constants.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/constants.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/subroutines/KPke.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/subroutines/KPke.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/utils/ntt.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/utils/ntt.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/utils/shake.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/utils/shake.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -35,15 +34,16 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Python.constants.executor&quot;: &quot;Run&quot;,
-    &quot;Python.main.executor&quot;: &quot;Run&quot;,
-    &quot;Python.sampleNtt.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Python.constants.executor": "Run",
+    "Python.main.executor": "Run",
+    "Python.sampleNtt.executor": "Run",
+    "Python.shake.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "main"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$" />
@@ -74,7 +74,15 @@
       <option name="project" value="LOCAL" />
       <updated>1733292954959</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Make NTT Class and moved all the related functions">
+      <option name="closed" value="true" />
+      <created>1733301647533</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1733301647533</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -91,6 +99,7 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="initial commit&#10;implement sampleNtt.py and sample polyCBD" />
     <MESSAGE value="implement ntt and ntt_inverse" />
-    <option name="LAST_COMMIT_MESSAGE" value="implement ntt and ntt_inverse" />
+    <MESSAGE value="Make NTT Class and moved all the related functions" />
+    <option name="LAST_COMMIT_MESSAGE" value="Make NTT Class and moved all the related functions" />
   </component>
 </project>

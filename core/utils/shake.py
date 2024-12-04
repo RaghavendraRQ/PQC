@@ -1,4 +1,5 @@
-from Crypto.Hash import SHAKE128
+from Crypto.Hash import SHAKE128, SHA3_512, SHAKE256
+import core.constants as const
 
 
 def shake128(strings, byte_lengths):
@@ -22,3 +23,16 @@ def shake128(strings, byte_lengths):
 
     # Concatenate outputs
     return b''.join(outputs)
+
+
+def sha3_512(ctx):
+    sha3 = SHA3_512.new(ctx)
+    hashed = sha3.digest()
+    return hashed[:32], hashed[32:]
+
+
+def prf(byte_string, b):
+    shake256 = SHAKE256.new(byte_string)
+    shake256.update(b)
+    return shake256.read(64 * const.ETA)
+
