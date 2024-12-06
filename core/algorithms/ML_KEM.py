@@ -26,20 +26,20 @@ class ML_KEM:
         if m is None:
             return None
         self.shared_secret, self.cipher = self.ml_kem_internal.encapsulation(m)
-        return self.cipher, self.shared_secret
+        return self.shared_secret, self.cipher
 
     def decapsulation(self, decapsulation_key, c):
         # TODO: Input check for decapsulation method
         self.shared_secret = self.ml_kem_internal.decapsulation(c)
         return self.shared_secret
 
-
+#
 mlkem = ML_KEM()
 e, d = mlkem.key_gen()
 print(f'e: {e}')
 print(f'd: {d}')
 s, c = mlkem.encapsulation(e)
-# s_ = mlkem.decapsulation(d, c)
+s_ = mlkem.decapsulation(d, c)
 print(f's: {s}')
 print(f'c: {len(c)}')
 # print(f's_: {s_}')

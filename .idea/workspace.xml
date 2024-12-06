@@ -54,7 +54,7 @@
       <recent name="$PROJECT_DIR$" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.ML_KEM">
+  <component name="RunManager" selected="Python.ML_KEM_Internal">
     <configuration name="KPke" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="PQC" />
       <option name="ENV_FILES" value="" />
@@ -123,8 +123,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.ML_KEM" />
         <item itemvalue="Python.ML_KEM_Internal" />
+        <item itemvalue="Python.ML_KEM" />
         <item itemvalue="Python.KPke" />
       </list>
     </recent_temporary>

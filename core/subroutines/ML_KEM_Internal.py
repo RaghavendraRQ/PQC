@@ -41,13 +41,13 @@ class ML_KEM_Internal:
         return shared_secret_key
 
 
-# ml_kem = ML_KEM_Internal(get_random_bytes(32), get_random_bytes(32))
-# e, d = ml_kem.keygen()
-# print(f'e: {e}')
-# print(f'd: {d}')
-# m = get_random_bytes(32)
-# k, c = ml_kem.encapsulation(m)
-# print(f'k: {k}')
-# print(f'c: {c}')
-# k_ = ml_kem.decapsulation(c)
-# print(f'k_: {k_}')
+ml_kem = ML_KEM_Internal(get_random_bytes(32), get_random_bytes(32))
+e, d = ml_kem.keygen()
+print(f'e: {e}')
+print(f'd: {d}')
+m = get_random_bytes(32)
+k, c = ml_kem.encapsulation(m)
+print(f'k: {k}')
+print(f'c: {len(c)}')
+k_ = ml_kem.decapsulation(c)
+print(f'k_: {k_}')
