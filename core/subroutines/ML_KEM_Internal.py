@@ -22,8 +22,8 @@ class ML_KEM_Internal:
 
     def encapsulation(self, m: bytes):
         shared_secret_key, r = sha3_512(m + sha3_256(self.encapsulation_key))
-        print(f'shared secret key: {shared_secret_key}')
-        print(f'r: {r}')
+        # print(f'shared secret key: {shared_secret_key}')
+        # print(f'r: {r}')
         cipher = self.kpke.encrypt(m, r)
         return shared_secret_key, cipher
 
@@ -32,14 +32,22 @@ class ML_KEM_Internal:
         encryption_key = self.decapsulation_key[384 * const.K:768 * const.K + 32]
         h = self.decapsulation_key[768 * const.K + 32: 768 * const.K + 64]
         z = self.decapsulation_key[768 * const.K + 64:768 * const.K + 96]
-        m = self.kpke.decrypt(c)
+        m = self.kpke.decrypt(c, decryption_key)
         shared_secret_key, r = sha3_512(b''.join([m, h]))
         shared_secret_key_check = shake256(b''.join([z, m]))
-        c_check = self.kpke.encrypt(m, r)
+        c_check = self.kpke.encrypt(m, r, encryption_key)
         if c != c_check:
             shared_secret_key = shared_secret_key_check
         return shared_secret_key
 
 
-ml_kem = ML_KEM_Internal(get_random_bytes(32), get_random_bytes(32))
-print(ml_kem.keygen()[0])
+# ml_kem = ML_KEM_Internal(get_random_bytes(32), get_random_bytes(32))
+# e, d = ml_kem.keygen()
+# print(f'e: {e}')
+# print(f'd: {d}')
+# m = get_random_bytes(32)
+# k, c = ml_kem.encapsulation(m)
+# print(f'k: {k}')
+# print(f'c: {c}')
+# k_ = ml_kem.decapsulation(c)
+# print(f'k_: {k_}')

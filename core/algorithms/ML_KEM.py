@@ -16,6 +16,7 @@ class ML_KEM:
         z = get_random_bytes(32)
         if d is None or z is None:
             return None
+        self.ml_kem_internal = ML_KEM_Internal(d, z)
         self.encapsulation_key, self.decapsulation_key = self.ml_kem_internal.keygen(d, z)
         return self.encapsulation_key, self.decapsulation_key
 
@@ -23,7 +24,7 @@ class ML_KEM:
         # TODO: Input Check for the encapsulation method
         m = get_random_bytes(32)
         if m is None:
-            return  None
+            return None
         self.shared_secret, self.cipher = self.ml_kem_internal.encapsulation(m)
         return self.cipher, self.shared_secret
 
@@ -31,3 +32,14 @@ class ML_KEM:
         # TODO: Input check for decapsulation method
         self.shared_secret = self.ml_kem_internal.decapsulation(c)
         return self.shared_secret
+
+
+mlkem = ML_KEM()
+e, d = mlkem.key_gen()
+print(f'e: {e}')
+print(f'd: {d}')
+s, c = mlkem.encapsulation(e)
+# s_ = mlkem.decapsulation(d, c)
+print(f's: {s}')
+print(f'c: {len(c)}')
+# print(f's_: {s_}')
