@@ -1,4 +1,3 @@
-from core.constants import ZETA_VALUES, ZETA_DOUBLE_VALUES, N, Q, ETA
 from core.utils.bits import bytes_to_bits
 from Crypto.Hash import SHAKE128
 
@@ -6,15 +5,14 @@ from Crypto.Hash import SHAKE128
 class NTT:
     """
     Creates a NTT class
+    :
     """
-
-    def __init__(self):
-        self.zeta_values = ZETA_VALUES
-        self.zeta_double_value = ZETA_DOUBLE_VALUES
-        self.n = N
-        self.q = Q
-        self.f = None
-        self.eta = ETA
+    def __init__(self, const):
+        self.zeta_values = const.ZETA_VALUES
+        self.zeta_double_value = const.ZETA_DOUBLE_VALUES
+        self.n = const.N
+        self.q = const.Q
+        self.eta = const.ETA
 
     def ntt(self, f):
         """
@@ -44,7 +42,7 @@ class NTT:
         """
         assert len(f_cap) == 256, f"Length of f_cap must be 256. Not {len(f_cap)}."
         f = f_cap.copy()
-        i = 127  # Start with the last zeta value for inverse NTT
+        i = 127
         length = 2
         while length <= 128:
             for start in range(0, 256, 2 * length):
