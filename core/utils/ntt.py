@@ -81,7 +81,7 @@ class NTT:
         :return: Multiplication of these two elements
         """
         assert len(f_cap) == 256 and len(g_cap) == 256, (f" Length of f_cap and g_cap must be 256. Not {len(f_cap)} and"
-                                                         f"{len(g_cap)}.")
+                                                         f" {len(g_cap)}.")
 
         h_cap = [0] * 256
         for i in range(128):

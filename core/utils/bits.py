@@ -1,4 +1,5 @@
 import core.constants as const
+from numpy import array, floor
 
 
 def bits_to_bytes(bit_array):
@@ -86,10 +87,40 @@ def byte_decode(byte_array, d):
     return f
 
 
-def compress(vector, d):
-    return [round((2 ** d / const.Q) * x) % (2 ** d) for x in vector]
+def compress(x, d, q=3329):
+    """
+    Compress function for arrays.
+    Compress_d : Z_q -> Z_{2^d}
+    x -> floor((2^d / q) * x + 0.5) mod 2^d
+
+    Args:
+        x (array-like): Array of integers in Z_q.
+        d (int): The bit length of the compressed range.
+        q (int): The modulus, default is 3329.
+
+    Returns:
+        np.ndarray: Array of compressed values in Z_{2^d}.
+    """
+    x = array(x)
+    scale = (2 ** d) / q
+    return floor(scale * x + 0.5).astype(int) % (2 ** d)
 
 
-def decompress(vector, d):
-    return [round((const.Q / (2 ** d)) * x) % const.Q for x in vector]
+def decompress(y, d, q=3329):
+    """
+    Decompress function for arrays.
+    Decompress_d : Z_{2^d} -> Z_q
+    y -> floor((q / 2^d) * y + 0.5)
+
+    Args:
+        y (array-like): Array of compressed values in Z_{2^d}.
+        d (int): The bit length of the compressed range.
+        q (int): The modulus, default is 3329.
+
+    Returns:
+        np.ndarray: Array of decompressed values in Z_q.
+    """
+    y = array(y)
+    scale = q / (2 ** d)
+    return floor(scale * y + 0.5).astype(int)
 
