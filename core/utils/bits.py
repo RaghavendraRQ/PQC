@@ -1,20 +1,20 @@
-import core.constants as const
+import core.constants_ as const
 from numpy import array, floor
 
 
 def bits_to_bytes(bit_array):
     """
     Converts a bit array of length (multiple of 8) into a byte array.
-    :param bit_array: List of bits (0 or 1) with length 8 * ℓ.
-    :return: Byte array of length ℓ.
+
+    :param bit_array: List of bits (0 or 1) with length 8 * l.
+
+    :returns: Byte array of length l.
     """
-    # Ensure the bit array length is a multiple of 8
     if len(bit_array) % 8 != 0:
         raise ValueError("Bit array length must be a multiple of 8.")
 
     byte_array = bytearray(len(bit_array) // 8)
 
-    # Convert bits to bytes
     for i in range(len(bit_array)):
         byte_index = i // 8
         bit_position = i % 8
@@ -26,17 +26,16 @@ def bits_to_bytes(bit_array):
 def bytes_to_bits(byte_array):
     """
     Converts a byte array into a bit array.
-    :param byte_array: Byte array of length ℓ.
-    :return: Bit array of length 8 * ℓ.
+
+    :param byte_array: Byte array of length l.
+
+    :returns: Bit array of length 8 * l.
     """
     bit_array = []
 
-    # Iterate through each byte in the byte array
     for byte in byte_array:
         for _ in range(8):
-            # Extract the least significant bit (LSB)
             bit_array.append(byte % 2)
-            # Shift the byte to the right (divide by 2)
             byte //= 2
 
     return bit_array
@@ -45,13 +44,17 @@ def bytes_to_bits(byte_array):
 def byte_encode(f, d):
     """
     Encodes an array of d-bit integers into a byte array.
-    :param f: Array of integers in Z256.
+
+    :param f: Array of integers.
     :param d: Bit-length of the integers (1 <= d <= 12).
-    :return: Encoded byte array.
+
+    :returns: Encoded byte array.
     """
-    # Validate d
     if not (1 <= d <= 12):
         raise ValueError("d must be between 1 and 12.")
+
+    assert len(f) == 256, f"Int array must be of length {256}. Not {len(f)} "
+
     b = [0] * (256 * d)
     for i in range(256):
         a = f[i]
@@ -65,9 +68,11 @@ def byte_encode(f, d):
 def byte_decode(byte_array, d):
     """
     Decodes a byte array into an array of d-bit integers.
+
     :param byte_array: Byte array of length 32 * d.
     :param d: Bit-length of the integers (1 <= d <= 12).
-    :return: Array of integers F.
+
+    :returns: Array of integers F.
     """
     if not (1 <= d <= 12):
         raise ValueError("d must be between 1 and 12.")
@@ -93,13 +98,11 @@ def compress(x, d, q=3329):
     Compress_d : Z_q -> Z_{2^d}
     x -> floor((2^d / q) * x + 0.5) mod 2^d
 
-    Args:
-        x (array-like): Array of integers in Z_q.
-        d (int): The bit length of the compressed range.
-        q (int): The modulus, default is 3329.
+    :param x: Array of integers in Z_q.
+    :param d : The bit length of the compressed range.
+    :param q : The modulus, default is 3329.
 
-    Returns:
-        np.ndarray: Array of compressed values in Z_{2^d}.
+    :returns: Array of compressed values in Z_{2^d}.
     """
     x = array(x)
     scale = (2 ** d) / q
@@ -112,15 +115,12 @@ def decompress(y, d, q=3329):
     Decompress_d : Z_{2^d} -> Z_q
     y -> floor((q / 2^d) * y + 0.5)
 
-    Args:
-        y (array-like): Array of compressed values in Z_{2^d}.
-        d (int): The bit length of the compressed range.
-        q (int): The modulus, default is 3329.
+    :param y: Array of compressed values in Z_{2^d}.
+    :param d: The bit length of the compressed range.
+    :param q: The modulus, default is 3329.
 
-    Returns:
-        np.ndarray: Array of decompressed values in Z_q.
+    :returns: Array of decompressed values in Z_q.
     """
     y = array(y)
     scale = q / (2 ** d)
     return floor(scale * y + 0.5).astype(int)
-

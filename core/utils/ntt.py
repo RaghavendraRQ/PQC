@@ -17,9 +17,14 @@ class NTT:
     def ntt(self, f):
         """
         Computes the NTT of a given polynomial f.
+
         :param f: Array of polynomial coefficients in Z_q (length 256).
+
         :return: Array of NTT coefficients f_cap in Z_q.
         """
+
+        assert len(f) == 256, f"Length of array f should be {256}, Not {len(f)}"
+
         f_cap = f.copy()
         i = 1
         length = 128
@@ -37,7 +42,9 @@ class NTT:
     def ntt_inverse(self, f_cap):
         """
         Computes the inverse NTT (NTT_Inverse) of a given NTT representation f_cap.
+
         :param f_cap: Array of NTT coefficients in Z_q (length 256).
+
         :return: Array of polynomial coefficients f in Z_q.
         """
         assert len(f_cap) == 256, f"Length of f_cap must be 256. Not {len(f_cap)}."
@@ -60,11 +67,13 @@ class NTT:
     def _base_case_multiply(self, a0, a1, b0, b1, zeta):
         """
         Computes the coefficient multiplication of two polynomials from T_q
+
         :param a0: coefficient of x^0 in f_cap
         :param a1: coefficient of x^1 in f_cap
         :param b0: coefficient of x^0 in g_cap
         :param b1: coefficient of x^1 in g_cap
         :param zeta: corresponding zeta value
+
         :return: Tuple of c0, c1
         """
         c0 = (a0 * b0 + a1 * b1 * zeta) % self.q
@@ -74,8 +83,10 @@ class NTT:
     def multiply_ntt(self, f_cap, g_cap):
         """
         Computes the multiplication for two elements from T_q
+
         :param f_cap: An element from T_q, coefficients for 128 mono-degree polynomial
         :param g_cap: Another element from T_q, coefficients for 128 mono-degree polynomial
+
         :return: Multiplication of these two elements
         """
         assert len(f_cap) == 256 and len(g_cap) == 256, (f" Length of f_cap and g_cap must be 256. Not {len(f_cap)} and"
@@ -90,9 +101,11 @@ class NTT:
 
     def get_sample_ntt(self, byte_array):
         """
-            Samples a pseudorandom element of T_q using a 34-byte seed and two indices.
-            :param byte_array: 34-byte seed (input as a byte array).
-            :return: Array of coefficients a ∈ ℤ_256 (NTT coefficients).
+        Samples a pseudorandom element of T_q using a 34-byte seed and two indices.
+
+        :param byte_array: 34-byte seed (input as a byte array).
+
+        :return: Array of coefficients a ∈ ℤ_256 (NTT coefficients).
         """
         assert len(byte_array) == 34, f"The byte array must be 34 bytes in length. Not {len(byte_array)}."
         shake = SHAKE128.new()
@@ -111,16 +124,19 @@ class NTT:
                 j += 1
         return a
 
-    def get_sample_polyCBD(self, byte_array, eta=None):
+    def get_sample_polyCBD(self, byte_array, eta):
         """
-            Samples a pseudorandom polynomial from the distribution D_eta(R_q).
-            :param eta: A constant that determines the distribution.
-            :param byte_array: Byte array of size 64 * eta (input as a byte array).
-            :return: Array of polynomial coefficients f ∈ ℤ_256.
+        Samples a pseudorandom polynomial from the distribution D_eta(R_q).
+
+        :param eta: A constant that determines the distribution.
+        :param byte_array: Byte array of size 64 * eta (input as a byte array).
+
+        :return: Array of polynomial coefficients f ∈ ℤ_256.
         """
         eta = eta or self.eta
         expected_length = 64 * eta
-        assert len(byte_array) == expected_length, f"The byte array must be of length {expected_length} (64 * eta)."
+        assert len(byte_array) == expected_length, f"The byte array must be of length {expected_length}."
+        f"Not {len(byte_array)}"
 
         bit_array = bytes_to_bits(byte_array)
         f = [0] * 256

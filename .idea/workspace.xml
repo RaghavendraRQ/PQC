@@ -4,12 +4,24 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="64dc7b8e-59ed-49f1-bf06-7d1335ead3e9" name="Changes" comment="Fixed ML_KEM.py file from return mismatch">
+    <list default="true" id="64dc7b8e-59ed-49f1-bf06-7d1335ead3e9" name="Changes" comment="Clean all the classes and add docs strings">
+      <change afterPath="$PROJECT_DIR$/core/algorithms/MLKEM.pyi" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/constants/kem1024.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/constants/kem512.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/constants/kem768.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/subroutines/KPke.pyi" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/subroutines/ML_KEM_Internal.pyi" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/utils/bits.pyi" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/utils/hash.pyi" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/utils/ntt.pyi" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/algorithms/ML_KEM.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/algorithms/ML_KEM.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/algorithms/ML_KEM.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/algorithms/MLKEM.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/constants.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/constants_.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/subroutines/KPke.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/subroutines/KPke.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/subroutines/ML_KEM_Internal.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/subroutines/ML_KEM_Internal.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/utils/bits.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/utils/bits.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/utils/ntt.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/utils/ntt.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/utils/shake.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/utils/hash.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -21,6 +33,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Python Script" />
+        <option value="Python Stub" />
       </list>
     </option>
   </component>
@@ -36,21 +49,21 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Python.KPke.executor": "Run",
-    "Python.ML_KEM.executor": "Run",
-    "Python.ML_KEM_Internal.executor": "Run",
-    "Python.bits.executor": "Run",
-    "Python.constants.executor": "Run",
-    "Python.main.executor": "Run",
-    "Python.sampleNtt.executor": "Run",
-    "Python.shake.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "main",
-    "last_opened_file_path": "/home/raghavendra/Myworkspace/CyberSecurity/PQC/PQC"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Python.KPke.executor&quot;: &quot;Run&quot;,
+    &quot;Python.ML_KEM.executor&quot;: &quot;Run&quot;,
+    &quot;Python.ML_KEM_Internal.executor&quot;: &quot;Run&quot;,
+    &quot;Python.bits.executor&quot;: &quot;Run&quot;,
+    &quot;Python.constants.executor&quot;: &quot;Run&quot;,
+    &quot;Python.main.executor&quot;: &quot;Run&quot;,
+    &quot;Python.sampleNtt.executor&quot;: &quot;Run&quot;,
+    &quot;Python.shake.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/raghavendra/Myworkspace/CyberSecurity/PQC/PQC&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$" />
@@ -79,7 +92,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="ML_KEM" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="MLKEM" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="PQC" />
       <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -92,7 +105,7 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/core/algorithms/ML_KEM.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/core/algorithms/MLKEM.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -149,7 +162,7 @@
       <list>
         <item itemvalue="Python.main" />
         <item itemvalue="Python.ML_KEM_Internal" />
-        <item itemvalue="Python.ML_KEM" />
+        <item itemvalue="Python.MLKEM" />
         <item itemvalue="Python.KPke" />
       </list>
     </recent_temporary>
@@ -227,7 +240,15 @@
       <option name="project" value="LOCAL" />
       <updated>1733484644607</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="Clean all the classes and add docs strings">
+      <option name="closed" value="true" />
+      <created>1733504675531</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1733504675531</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -250,6 +271,7 @@
     <MESSAGE value="Implement ml-kem-internal and ml-kem classes." />
     <MESSAGE value="Completed the main logic and same shared keys are produced" />
     <MESSAGE value="Fixed ML_KEM.py file from return mismatch" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fixed ML_KEM.py file from return mismatch" />
+    <MESSAGE value="Clean all the classes and add docs strings" />
+    <option name="LAST_COMMIT_MESSAGE" value="Clean all the classes and add docs strings" />
   </component>
 </project>

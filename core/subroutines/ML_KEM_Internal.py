@@ -1,12 +1,13 @@
 from core.subroutines.KPke import KPke
-from core.utils.shake import sha3_256, sha3_512, shake256
+from core.utils.hash import sha3_256, sha3_512, shake256
 
 
 class ML_KEM_Internal:
     def __init__(self, const):
         """
         Initializes a ml_kem_internal object never use it directly use MLKEM instead
-        :param const: (Constants) a constant file
+
+        :param const: a constant file
         """
         self.const = const
         self.kpke = KPke(const)
@@ -16,8 +17,10 @@ class ML_KEM_Internal:
     def keygen(self, d, z):
         """
         Generates a pair of keys for encapsulation and decapsulation
-        :param d: (Byte) a 32 byte random seed
-        :param z: (Byte) a 32 byte random for randomness
+
+        :param d: a 32 byte random seed
+        :param z: a 32 byte random for randomness
+
         :return: Tuple of encapsulation_key, decapsulation_key
         """
         self.encapsulation_key, self.decapsulation_key = self.kpke.keygen(d)

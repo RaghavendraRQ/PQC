@@ -1,7 +1,7 @@
 import numpy as np
 
 from core.utils.bits import byte_encode, byte_decode, compress, decompress
-from core.utils.shake import sha3_512, prf
+from core.utils.hash import sha3_512, prf
 from core.utils.ntt import NTT
 
 
@@ -9,8 +9,8 @@ class KPke:
     def __init__(self, const):
         """
         Initializes a KPke object with a random seed
-        :param ntt: (NTT) A NTT object used for operations
-        :param const: (Constants) constants used for different algorithms
+
+        :param const: constants used for different algorithms
         """
         self.ntt = NTT(const)
         self.const = const
@@ -21,11 +21,16 @@ class KPke:
     def keygen(self, d):
         """
         Generates a pair of keys for encryption and decryption. which have length based on the implementation
+
         :param d: a random 32 bytes for randomness
+
         :return: Tuple of (encryption_key, decryption_key)
         """
         if self.encryption_key is not None and self.decryption_key is not None:
             return self.encryption_key, self.decryption_key
+
+        assert len(d) == 32, f"Length of random bytes {32}bytes. Not {len(d)}"
+
         ro, sigma = sha3_512(d + self.k.to_bytes())
         n = 0
         s = [[0] * self.const.N for _ in range(self.k)]
@@ -35,10 +40,10 @@ class KPke:
             for j in range(self.k):
                 A[i][j] = self.ntt.get_sample_ntt(ro + j.to_bytes() + i.to_bytes())
         for i in range(self.k):
-            s[i] = self.ntt.get_sample_polyCBD(prf(sigma, n.to_bytes()))
+            s[i] = self.ntt.get_sample_polyCBD(prf(sigma, n.to_bytes(), self.const.ETA), self.const.ETA)
             n += 1
         for j in range(self.k):
-            e[j] = self.ntt.get_sample_polyCBD(prf(sigma, n.to_bytes()))
+            e[j] = self.ntt.get_sample_polyCBD(prf(sigma, n.to_bytes(), self.const.ETA), self.const.ETA)
             n += 1
         s_cap = [self.ntt.ntt(s[i]) for i in range(self.k)]
         e_cap = [self.ntt.ntt(e[i]) for i in range(self.k)]
@@ -50,11 +55,16 @@ class KPke:
     def encrypt(self, message, randomness, encryption_key):
         """
         Generates a cipher text for the given message using encryption_key
+
         :param message: (Byte) 32 byte message
         :param randomness: (Byte) 32 byte random value
         :param encryption_key: (Byte) encryption_key of size 384k + 32
+
         :return: (Byte) return a cipher text of length 384k + 32
         """
+
+        assert len(message) == 32 and len(randomness) == 32, f"Length of message and randomness should be {32} bytes."
+
         self.encryption_key = encryption_key
         A = [[[0] * self.const.N for _ in range(self.k)] for _ in range(self.k)]
         n = 0
@@ -85,12 +95,14 @@ class KPke:
         cipher += second_half_cipher
         return cipher
 
-    def decrypt(self, cipher, decryption_key=None):
+    def decrypt(self, cipher, decryption_key):
         """
         Decrypts a cipher text to get original message back
-        :param cipher: (Byte) return a cipher text of length 384k + 32
-        :param decryption_key: (Byte) a decryption_key corresponding to cipher text
-        :return: (Byte) a message of length 32 bytes
+
+        :param cipher: a cipher text of length 384k + 32
+        :param decryption_key: a decryption_key corresponding to cipher text
+
+        :return: a message of length 32 bytes
         """
         self.decryption_key = decryption_key
         first_half = cipher[0:32 * self.const.DU * self.k]
@@ -126,10 +138,4 @@ class KPke:
         return result
 
     def _add_vectors(self, vec1, vec2):
-        """
-        Adds two vectors
-        :param vec1:
-        :param vec2:
-        :return:
-        """
         return np.add(vec1, vec2) % self.const.Q

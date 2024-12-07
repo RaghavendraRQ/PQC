@@ -1,10 +1,17 @@
-from core.algorithms.ML_KEM import ML_KEM
+from core.algorithms.MLKEM import MLKEM
 
-ml_kem = ML_KEM()
+print("Alice side")
+ml_kem_alice = MLKEM()
+encaps, decaps = ml_kem_alice.key_gen()
+print(f'encaps: {encaps}')
+print(f'decaps: {decaps}')
 
-encaps, decaps = ml_kem.key_gen()
-k, c = ml_kem.encapsulation(encaps)
-k_ = ml_kem.decapsulation(decaps, c)
+print('Bob side')
+ml_kem_bob = MLKEM()
+k, ci = ml_kem_bob.encapsulation(encaps)
+print(f'K (Bob): {k.hex()}')
+print(f'cipher: {ci}')
 
-print(f'k: {k}')
-print(f'K_: {k_}')
+print('Alice side')
+k_ = ml_kem_alice.decapsulation(decaps, ci)
+print(f'K (Alice): {k_.hex()}')
