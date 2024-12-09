@@ -124,3 +124,106 @@ def decompress(y, d, q=3329):
     y = array(y)
     scale = q / (2 ** d)
     return floor(scale * y + 0.5).astype(int)
+
+
+def int_to_bits(integer, length):
+    """
+    Computes a base-2 representation of integer mod 2^length using little-endian order.
+
+    :param integer: A Non-Negative integer
+    :param length: A Positive integer
+
+    :return: bit string of given length
+    """
+
+    assert integer >= 0 and length >= 0, "Integer and  length must be positive."
+
+    integer_ = integer
+    bit_string = ''
+    for i in range(length):
+        bit_string += str(integer_ % 2)
+        integer_ //= 2
+
+    return bit_string
+
+
+def bits_to_int(bit_string, length):
+    """
+    Computes the integer value expressed by a bit string using little-endian order
+
+    :param bit_string: bit_string to be converted
+    :param length: length of the bit_string
+
+    :return: Non-Negative integer
+    """
+
+    assert len(bit_string) == length >= 0, "Length should be positive and equals to the bit_string."
+
+    integer = 0
+    for i in range(1, length + 1):
+        integer = 2 * integer + int(bit_string[length - i])
+
+    return integer
+
+
+def int_to_bytes(integer, length):
+    """
+    Computes a base-256 representation of integer mod 256^length using little-endian order
+
+    :param integer: A Non-Negative integer
+    :param length: A Positive integer
+
+    :return: A byte string of given length
+    """
+
+    assert integer >= 0 and length >= 0, "Integer and  length must be positive."
+
+    integer_ = integer
+    y = []
+    for i in range(length):
+        y.append(integer_ % 256)
+        integer_ //= 2
+
+    return bytes(y)
+
+
+def coeff_from_three_bytes(b0, b1, b2, q=8380417):
+    """
+    Generates an element of {0 - q-1} or None
+
+    :param q: modulus
+    :param b0: byte b0
+    :param b1: byte b1
+    :param b2: another byte b2
+
+    :return: an integer % q or none
+    """
+
+    b2_ = int.from_bytes(b2)
+    b1_ = int.from_bytes(b1)
+    b0_ = int.from_bytes(b0)
+    if b2_ > 127:
+        b2_ = b2_ - 128
+    integer = (2 ** 16) * b2_ + (2 ** 8) * b1_ + b0_
+    return integer if integer < q else None
+
+
+def coeff_from_half_byte(b, ETA):
+    """
+    Let eta ∈ {2, 4}. Generates an element of {−eta, −eta + 1, ... , eta} or None
+
+    :param ETA: Constant for the algorithm
+    :param b: int b/w 0 - 15
+
+    :return: int b/w -eta to eta or None
+    """
+
+    assert 0 <= b <= 15, "integer b should in range(0,16)."
+
+    if ETA == 2 and b < 15:
+        return 2 - b % 5
+    elif ETA == 4 and b < 9:
+        return 4 - b
+
+    return None
+

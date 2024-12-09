@@ -4,25 +4,21 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="64dc7b8e-59ed-49f1-bf06-7d1335ead3e9" name="Changes" comment="Clean all the classes and add docs strings">
-      <change afterPath="$PROJECT_DIR$/core/algorithms/MLKEM.pyi" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/constants/kem1024.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/constants/kem512.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/constants/kem768.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/subroutines/KPke.pyi" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/subroutines/ML_KEM_Internal.pyi" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/utils/bits.pyi" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/utils/hash.pyi" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/utils/ntt.pyi" afterDir="false" />
+    <list default="true" id="64dc7b8e-59ed-49f1-bf06-7d1335ead3e9" name="Changes" comment="Add pyi files for all modules and add constants dir for all the kem parmas">
+      <change afterPath="$PROJECT_DIR$/core/algorithms/MLDSA.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/algorithms/MLDSA.pyi" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/constants/dsa44.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/tests/testbit.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/utils/advbits.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/utils/advbits.pyi" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/utils/dsa/encodings.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/utils/dsa/encodings.pyi" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/utils/optimizers.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/utils/optimizers.pyi" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/PQC.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/PQC.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/algorithms/ML_KEM.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/algorithms/MLKEM.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/constants.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/constants_.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/subroutines/KPke.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/subroutines/KPke.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/subroutines/ML_KEM_Internal.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/subroutines/ML_KEM_Internal.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/utils/bits.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/utils/bits.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/utils/ntt.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/utils/ntt.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/utils/shake.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/utils/hash.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/utils/bits.pyi" beforeDir="false" afterPath="$PROJECT_DIR$/core/utils/bits.pyi" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -38,8 +34,25 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="main" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN",
+    "assignee": "sai2wwe"
+  }
+}]]></component>
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "git@github.com:sai2wwe/PQC.git",
+    "accountId": "982bd717-1097-4fc5-a07a-6de7812412bd"
+  }
+}]]></component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 1
 }</component>
@@ -59,9 +72,11 @@
     &quot;Python.main.executor&quot;: &quot;Run&quot;,
     &quot;Python.sampleNtt.executor&quot;: &quot;Run&quot;,
     &quot;Python.shake.executor&quot;: &quot;Run&quot;,
+    &quot;Python.testbit.executor&quot;: &quot;Run&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/home/raghavendra/Myworkspace/CyberSecurity/PQC/PQC&quot;
+    &quot;git-widget-placeholder&quot;: &quot;mldsa&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/raghavendra/Myworkspace/CyberSecurity/PQC/PQC&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyIntegratedToolsModulesConfigurable&quot;
   }
 }</component>
   <component name="RecentsManager">
@@ -69,7 +84,7 @@
       <recent name="$PROJECT_DIR$" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.main">
+  <component name="RunManager" selected="Python.testbit">
     <configuration name="KPke" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="PQC" />
       <option name="ENV_FILES" value="" />
@@ -158,8 +173,31 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="testbit" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="PQC" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/core/tests" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/core/tests/testbit.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.testbit" />
         <item itemvalue="Python.main" />
         <item itemvalue="Python.ML_KEM_Internal" />
         <item itemvalue="Python.MLKEM" />
@@ -248,7 +286,15 @@
       <option name="project" value="LOCAL" />
       <updated>1733504675531</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="Add pyi files for all modules and add constants dir for all the kem parmas">
+      <option name="closed" value="true" />
+      <created>1733592723516</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1733592723516</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -256,7 +302,19 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="mldsa" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
           </value>
         </entry>
       </map>
@@ -272,6 +330,7 @@
     <MESSAGE value="Completed the main logic and same shared keys are produced" />
     <MESSAGE value="Fixed ML_KEM.py file from return mismatch" />
     <MESSAGE value="Clean all the classes and add docs strings" />
-    <option name="LAST_COMMIT_MESSAGE" value="Clean all the classes and add docs strings" />
+    <MESSAGE value="Add pyi files for all modules and add constants dir for all the kem parmas" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add pyi files for all modules and add constants dir for all the kem parmas" />
   </component>
 </project>

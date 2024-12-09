@@ -1,0 +1,13 @@
+from typing import Tuple, List
+
+
+class MLDSA:
+
+    def __init__(self) -> None: ...
+
+    def keygen(self) -> Tuple[bytes, bytes]: ...
+
+    def sign(self, private_key: bytes, message: List[int], ctx: bytes) -> bytes: ...
+
+    def verify(self, public_key: bytes, message: List[int], signature: bytes) -> bool: ...
+
