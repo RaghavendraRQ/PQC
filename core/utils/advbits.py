@@ -31,11 +31,11 @@ def simple_bit_unpack(byte_string, end):
     """
 
     c = end.bit_length()
+    assert len(byte_string) == 32 * c, f"Length of byte string should be {32 * c} not {len(byte_string)}"
     z = bytes_to_bits(byte_string)
     w = []
     for i in range(256):
         w.append(bits_to_int(''.join([str(z[i*c + j]) for j in range(c)]), c))
-
     return w
 
 

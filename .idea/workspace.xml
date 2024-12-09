@@ -4,21 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="64dc7b8e-59ed-49f1-bf06-7d1335ead3e9" name="Changes" comment="Add pyi files for all modules and add constants dir for all the kem parmas">
-      <change afterPath="$PROJECT_DIR$/core/algorithms/MLDSA.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/algorithms/MLDSA.pyi" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/constants/dsa44.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/tests/testbit.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/utils/advbits.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/utils/advbits.pyi" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/utils/dsa/encodings.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/utils/dsa/encodings.pyi" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/utils/optimizers.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/utils/optimizers.pyi" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/PQC.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/PQC.iml" afterDir="false" />
+    <list default="true" id="64dc7b8e-59ed-49f1-bf06-7d1335ead3e9" name="Changes" comment="Partial Change comments into google style and complete optimizers.py algorithms and advbits.py">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/utils/bits.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/utils/bits.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/utils/bits.pyi" beforeDir="false" afterPath="$PROJECT_DIR$/core/utils/bits.pyi" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/constants/dsa44.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/constants/dsa44.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/tests/testbit.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/tests/testbit.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/utils/advbits.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/utils/advbits.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/utils/dsa/encodings.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/utils/dsa/encodings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/utils/dsa/encodings.pyi" beforeDir="false" afterPath="$PROJECT_DIR$/core/utils/dsa/encodings.pyi" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -294,7 +286,15 @@
       <option name="project" value="LOCAL" />
       <updated>1733592723516</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="Partial Change comments into google style and complete optimizers.py algorithms and advbits.py">
+      <option name="closed" value="true" />
+      <created>1733748447955</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1733748447955</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -331,6 +331,7 @@
     <MESSAGE value="Fixed ML_KEM.py file from return mismatch" />
     <MESSAGE value="Clean all the classes and add docs strings" />
     <MESSAGE value="Add pyi files for all modules and add constants dir for all the kem parmas" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add pyi files for all modules and add constants dir for all the kem parmas" />
+    <MESSAGE value="Partial Change comments into google style and complete optimizers.py algorithms and advbits.py" />
+    <option name="LAST_COMMIT_MESSAGE" value="Partial Change comments into google style and complete optimizers.py algorithms and advbits.py" />
   </component>
 </project>

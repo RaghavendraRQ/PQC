@@ -1,8 +1,10 @@
 Q = 8380417
 ETA = 2
+N = 1023    # 2 ** bitlen(q - 1) - d - 1
 ZETA = 1753
 D = 13
 TO = 39
+LAMBDA = 128
 GAMMA_1 = 131072
 GAMMA_2 = 95232
 K, L = 4, 4
