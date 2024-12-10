@@ -5,7 +5,12 @@ from Crypto.Hash import SHAKE128
 class NTT:
     """
     Creates a NTT class
-    :
+    Attributes:
+        zeta_values: All the zeta values that are corresponding to the algorithm
+        zeta_double_value: All the zeta square values  that are corresponding to the algorithm
+        n: size of the NTT functions in Rq
+        q: Modulus
+        eta: Constant value
     """
     def __init__(self, const):
         self.zeta_values = const.ZETA_VALUES
@@ -18,11 +23,12 @@ class NTT:
         """
         Computes the NTT of a given polynomial f.
 
-        :param f: Array of polynomial coefficients in Z_q (length 256).
+        Args:
+            f:  Array of polynomial coefficients in Z_q (length 256).
 
-        :return: Array of NTT coefficients f_cap in Z_q.
+        Returns:
+            Array of NTT coefficients f_cap in Z_q.
         """
-
         assert len(f) == 256, f"Length of array f should be {256}, Not {len(f)}"
 
         f_cap = f.copy()
@@ -43,11 +49,14 @@ class NTT:
         """
         Computes the inverse NTT (NTT_Inverse) of a given NTT representation f_cap.
 
-        :param f_cap: Array of NTT coefficients in Z_q (length 256).
+        Args:
+            f_cap: Array of NTT coefficients in Z_q (length 256).
 
-        :return: Array of polynomial coefficients f in Z_q.
+        Returns:
+            Array of polynomial coefficients f in Z_q.
         """
         assert len(f_cap) == 256, f"Length of f_cap must be 256. Not {len(f_cap)}."
+
         f = f_cap.copy()
         i = 127
         length = 2
@@ -68,14 +77,18 @@ class NTT:
         """
         Computes the coefficient multiplication of two polynomials from T_q
 
-        :param a0: coefficient of x^0 in f_cap
-        :param a1: coefficient of x^1 in f_cap
-        :param b0: coefficient of x^0 in g_cap
-        :param b1: coefficient of x^1 in g_cap
-        :param zeta: corresponding zeta value
+        Args:
+            a0: coefficient of x^0 in f_cap
+            a1: coefficient of x^1 in f_cap
+            b0: coefficient of x^0 in g_cap
+            b1: coefficient of x^1 in g_cap
+            zeta: corresponding zeta value
 
-        :return: Tuple of c0, c1
+        Returns:
+            Tuple: c0, c1
         """
+        assert 0 <= any([a0, a1, b0, b1]) <= self.q, "All the coefficients should be in range[0, Q]"
+
         c0 = (a0 * b0 + a1 * b1 * zeta) % self.q
         c1 = (a0 * b1 + a1 * b0) % self.q
         return c0, c1
@@ -84,10 +97,12 @@ class NTT:
         """
         Computes the multiplication for two elements from T_q
 
-        :param f_cap: An element from T_q, coefficients for 128 mono-degree polynomial
-        :param g_cap: Another element from T_q, coefficients for 128 mono-degree polynomial
+        Args:
+            f_cap:  An element from T_q, coefficients for 128 mono-degree polynomial
+            g_cap: Another element from T_q, coefficients for 128 mono-degree polynomial
 
-        :return: Multiplication of these two elements
+        Returns:
+             Multiplication of these two elements
         """
         assert len(f_cap) == 256 and len(g_cap) == 256, (f" Length of f_cap and g_cap must be 256. Not {len(f_cap)} and"
                                                          f" {len(g_cap)}.")
@@ -103,11 +118,14 @@ class NTT:
         """
         Samples a pseudorandom element of T_q using a 34-byte seed and two indices.
 
-        :param byte_array: 34-byte seed (input as a byte array).
+        Args:
+            byte_array: 34-byte seed (input as a byte array).
 
-        :return: Array of coefficients a ∈ ℤ_256 (NTT coefficients).
+        Returns:
+            Array of coefficients a ∈ ℤ_256 (NTT coefficients).
         """
         assert len(byte_array) == 34, f"The byte array must be 34 bytes in length. Not {len(byte_array)}."
+
         shake = SHAKE128.new()
         shake.update(byte_array)
         a = [0] * 256
@@ -128,10 +146,12 @@ class NTT:
         """
         Samples a pseudorandom polynomial from the distribution D_eta(R_q).
 
-        :param eta: A constant that determines the distribution.
-        :param byte_array: Byte array of size 64 * eta (input as a byte array).
+        Args:
+            byte_array: Byte array of size 64 * eta (input as a byte array).
+            eta: A constant that determines the distribution.
 
-        :return: Array of polynomial coefficients f ∈ ℤ_256.
+        Returns:
+            Array of polynomial coefficients f ∈ ℤ_256.
         """
         eta = eta or self.eta
         expected_length = 64 * eta

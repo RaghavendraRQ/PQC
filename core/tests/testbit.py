@@ -1,9 +1,6 @@
 import core.constants.dsa44 as const
-from core.utils.dsa.encodings import Encodings
+from core.utils.dsa.sampling import Sample
 
-encoding = Encodings(const)
-
-
-w1 = [[2] * 256 for _ in range(const.K)]
-w1_ = encoding.w1_encode(w1)
-print(f'w1: {w1_}')
+sample = Sample(const)
+seed = bytes(32)
+print(sample.expand_mask(seed, 2))

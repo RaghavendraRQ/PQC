@@ -18,11 +18,14 @@ class ML_KEM_Internal:
         """
         Generates a pair of keys for encapsulation and decapsulation
 
-        :param d: a 32 byte random seed
-        :param z: a 32 byte random for randomness
+        Args:
+            d: a 32 byte random seed
+            z: a 32 byte random for randomness
 
-        :return: Tuple of encapsulation_key, decapsulation_key
+        Returns:
+            Tuple of encapsulation_key, decapsulation_key
         """
+
         self.encapsulation_key, self.decapsulation_key = self.kpke.keygen(d)
         self.decapsulation_key = b''.join([self.decapsulation_key, self.encapsulation_key, sha3_256(
             self.encapsulation_key), z])
@@ -31,10 +34,15 @@ class ML_KEM_Internal:
     def encapsulation(self, m, encapsulation_key):
         """
         Generates a shared_secret key of length 32 and a cipher
-        :param m: (Byte) 32 byte random seed
-        :param encapsulation_key: (Byte) encapsulation_key of length 384k+32
-        :return: Tuple of shared_secret_key, cipher
+
+        Args:
+            m:  32 byte random seed
+            encapsulation_key: encapsulation_key of length 384k+32
+
+        Returns:
+            Tuple: Shared secret key, cipher
         """
+
         self.encapsulation_key = encapsulation_key
         shared_secret_key, r = sha3_512(m + sha3_256(self.encapsulation_key))
         cipher = self.kpke.encrypt(m, r, self.encapsulation_key)
@@ -43,10 +51,15 @@ class ML_KEM_Internal:
     def decapsulation(self, c, decapsulation_key):
         """
         Reconstructs the shared_secret_key using cipher and decapsulation_key
-        :param c: (Byte) 32(duk) sized cipher
-        :param decapsulation_key: (Byte) 786k+96 sized decryption_key
-        :return: shared_secret_key using kpke
+
+        Args:
+            c: 32(duk) sized cipher
+            decapsulation_key: 786k+96 sized decryption_key
+
+        Returns:
+            bytes: shared_secret_key using kpke
         """
+
         self.decapsulation_key = decapsulation_key
         decryption_key = self.decapsulation_key[0: 384 * self.const.K]
         encryption_key = self.decapsulation_key[384 * self.const.K:768 * self.const.K + 32]

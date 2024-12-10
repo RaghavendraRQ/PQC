@@ -5,7 +5,7 @@ def mod_symmetric(m, a):
     """
     Compute the symmetric modulo operation.
 
-    Parameters:
+    Args:
         m : The integer input.
         a : The positive integer modulus.
 
