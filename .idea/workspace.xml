@@ -5,13 +5,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="64dc7b8e-59ed-49f1-bf06-7d1335ead3e9" name="Changes" comment="Change the docs style to google. start sampling.py">
+      <change afterPath="$PROJECT_DIR$/core/subroutines/MLDSA_.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/subroutines/MLDSA_.pyi" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/utils/overflow/stubborn.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/utils/overflow/stubborn.pyi" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/algorithms/MLKEM.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/algorithms/MLKEM.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/algorithms/MLKEM.pyi" beforeDir="false" afterPath="$PROJECT_DIR$/core/algorithms/MLKEM.pyi" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/constants/dsa44.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/constants/dsa44.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/subroutines/ML_KEM_Internal.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/subroutines/MLKEM_.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/subroutines/ML_KEM_Internal.pyi" beforeDir="false" afterPath="$PROJECT_DIR$/core/subroutines/MLKEM_.pyi" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/tests/testbit.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/tests/testbit.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/utils/advbits.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/utils/advbits.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/utils/dsa/encodings.pyi" beforeDir="false" afterPath="$PROJECT_DIR$/core/utils/dsa/encodings.pyi" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/utils/dsa/sampling.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/utils/dsa/sampling.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/utils/dsa/sampling.pyi" beforeDir="false" afterPath="$PROJECT_DIR$/core/utils/dsa/sampling.pyi" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/utils/ntt.pyi" beforeDir="false" afterPath="$PROJECT_DIR$/core/utils/ntt.pyi" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -21,8 +27,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Python Stub" />
         <option value="Python Script" />
+        <option value="Python Stub" />
       </list>
     </option>
   </component>
@@ -33,6 +39,7 @@
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RESET_MODE" value="HARD" />
   </component>
   <component name="GitHubPullRequestSearchHistory">{
   &quot;lastFilter&quot;: {
@@ -55,51 +62,30 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Python.KPke.executor&quot;: &quot;Run&quot;,
-    &quot;Python.ML_KEM.executor&quot;: &quot;Run&quot;,
-    &quot;Python.ML_KEM_Internal.executor&quot;: &quot;Run&quot;,
-    &quot;Python.bits.executor&quot;: &quot;Run&quot;,
-    &quot;Python.constants.executor&quot;: &quot;Run&quot;,
-    &quot;Python.main.executor&quot;: &quot;Run&quot;,
-    &quot;Python.sampleNtt.executor&quot;: &quot;Run&quot;,
-    &quot;Python.shake.executor&quot;: &quot;Run&quot;,
-    &quot;Python.testbit.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;mldsa&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/home/raghavendra/Myworkspace/CyberSecurity/PQC/PQC&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyIntegratedToolsModulesConfigurable&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Python.KPke.executor": "Run",
+    "Python.ML_KEM.executor": "Run",
+    "Python.ML_KEM_Internal.executor": "Run",
+    "Python.bits.executor": "Run",
+    "Python.constants.executor": "Run",
+    "Python.dsa44.executor": "Run",
+    "Python.main.executor": "Run",
+    "Python.sampleNtt.executor": "Run",
+    "Python.shake.executor": "Run",
+    "Python.testbit.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "mldsa",
+    "last_opened_file_path": "/home/raghavendra/Myworkspace/CyberSecurity/PQC/PQC",
+    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyIntegratedToolsModulesConfigurable"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$" />
     </key>
   </component>
   <component name="RunManager" selected="Python.testbit">
-    <configuration name="KPke" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="PQC" />
-      <option name="ENV_FILES" value="" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/core/subroutines" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/core/subroutines/KPke.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
     <configuration name="MLKEM" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="PQC" />
       <option name="ENV_FILES" value="" />
@@ -122,7 +108,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="ML_KEM_Internal" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="MLKEM_" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="PQC" />
       <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -135,7 +121,29 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/core/subroutines/ML_KEM_Internal.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/core/subroutines/MLKEM_.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="dsa44" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="PQC" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/core/constants" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/core/constants/dsa44.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -191,10 +199,10 @@
     <recent_temporary>
       <list>
         <item itemvalue="Python.testbit" />
+        <item itemvalue="Python.dsa44" />
         <item itemvalue="Python.main" />
-        <item itemvalue="Python.ML_KEM_Internal" />
+        <item itemvalue="Python.MLKEM_" />
         <item itemvalue="Python.MLKEM" />
-        <item itemvalue="Python.KPke" />
       </list>
     </recent_temporary>
   </component>

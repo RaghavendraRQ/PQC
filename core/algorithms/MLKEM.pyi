@@ -1,5 +1,5 @@
 from typing import Tuple, Optional, Any
-from core.subroutines.ML_KEM_Internal import ML_KEM_Internal
+from core.subroutines.MLKEM_ import MLKEM_
 
 
 class MLKEM:
@@ -8,7 +8,7 @@ class MLKEM:
     MLKEM1024: str
 
     config: Any
-    _ml_kem_internal: ML_KEM_Internal
+    _MLKEM_: MLKEM_
     encapsulation_key: bytes
     decapsulation_key: bytes
     cipher: bytes

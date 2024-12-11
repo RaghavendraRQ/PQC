@@ -2,7 +2,7 @@ from typing import Tuple, Any, Union
 from core.subroutines.KPke import KPke
 
 
-class ML_KEM_Internal:
+class MLKEM_:
     const: Any
     kpke: KPke
     encapsulation_key: Union[bytes, None]
