@@ -1,13 +1,13 @@
-from typing import List, Tuple
-import core.constants_ as cons
+from typing import List, Tuple, Any
 
 class NTT:
-    def __init__(self, const: cons) -> None:
-        self.zeta_values: Tuple[int] = None
-        self.zeta_double_value: Tuple[int] = None
-        self.n: int = None
-        self.q: int = None
-        self.eta: int = None
+    zeta_values: Tuple[int]
+    zeta_double_value: Tuple[int]
+    n: int
+    q: int
+    eta: int
+
+    def __init__(self, const: Any) -> None: ...
 
     def ntt(self, f: List[int]) -> List[int]: ...
 

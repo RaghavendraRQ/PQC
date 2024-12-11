@@ -1,17 +1,16 @@
-from typing import Tuple, List
-import core.constants_ as cons
+from typing import Tuple, List, Any, Union
 from core.utils.ntt import NTT
 
 Matrix = List[List[int]]
 
 class KPke:
-    def __init__(self, const: cons) -> None:
-        self.ntt: NTT = None
-        self.k: int = None
-        self.const: cons = None
-        self.encryption_key: bytes = None
-        self.decryption_key: bytes = None
-        ...
+    ntt: NTT
+    k: int
+    const: Any
+    encryption_key: Union[bytes, None]
+    decryption_key: Union[bytes, None]
+
+    def __init__(self, const: Any) -> None: ...
 
     def keygen(self, d: bytes) -> Tuple[bytes, bytes]: ...
 
