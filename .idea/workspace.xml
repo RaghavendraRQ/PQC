@@ -4,16 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="64dc7b8e-59ed-49f1-bf06-7d1335ead3e9" name="Changes" comment="Complete encodings.py class with all the methods tested">
-      <change afterPath="$PROJECT_DIR$/core/utils/dsa/sampling.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/utils/dsa/sampling.pyi" afterDir="false" />
+    <list default="true" id="64dc7b8e-59ed-49f1-bf06-7d1335ead3e9" name="Changes" comment="Change the docs style to google. start sampling.py">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/tests/testbit.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/tests/testbit.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/utils/bits.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/utils/bits.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/utils/hash.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/utils/hash.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/utils/hash.pyi" beforeDir="false" afterPath="$PROJECT_DIR$/core/utils/hash.pyi" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/utils/ntt.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/utils/ntt.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/utils/optimizers.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/utils/optimizers.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/utils/advbits.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/utils/advbits.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/utils/dsa/encodings.pyi" beforeDir="false" afterPath="$PROJECT_DIR$/core/utils/dsa/encodings.pyi" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/utils/dsa/sampling.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/utils/dsa/sampling.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/utils/dsa/sampling.pyi" beforeDir="false" afterPath="$PROJECT_DIR$/core/utils/dsa/sampling.pyi" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/utils/ntt.pyi" beforeDir="false" afterPath="$PROJECT_DIR$/core/utils/ntt.pyi" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -23,8 +21,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Python Script" />
         <option value="Python Stub" />
+        <option value="Python Script" />
       </list>
     </option>
   </component>
@@ -305,7 +303,15 @@
       <option name="project" value="LOCAL" />
       <updated>1733765543145</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="Change the docs style to google. start sampling.py">
+      <option name="closed" value="true" />
+      <created>1733824612402</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1733824612402</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -344,6 +350,7 @@
     <MESSAGE value="Add pyi files for all modules and add constants dir for all the kem parmas" />
     <MESSAGE value="Partial Change comments into google style and complete optimizers.py algorithms and advbits.py" />
     <MESSAGE value="Complete encodings.py class with all the methods tested" />
-    <option name="LAST_COMMIT_MESSAGE" value="Complete encodings.py class with all the methods tested" />
+    <MESSAGE value="Change the docs style to google. start sampling.py" />
+    <option name="LAST_COMMIT_MESSAGE" value="Change the docs style to google. start sampling.py" />
   </component>
 </project>

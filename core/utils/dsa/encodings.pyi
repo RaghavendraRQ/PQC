@@ -1,12 +1,11 @@
-from typing import Tuple, List
+from typing import Tuple, List, Any
 
 Matrix = List[List[int]]
 
 class Encodings:
+    const: Any
 
-    def __init__(self, const) -> None:
-        self.const = None
-        ...
+    def __init__(self, const) -> None: ...
 
     def public_key_encode(self, ro: bytes, t1: Matrix) -> bytes: ...
 

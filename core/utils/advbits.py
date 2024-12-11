@@ -1,4 +1,4 @@
-from core.utils.bits import int_to_bits, bits_to_bytes, bytes_to_bits, bits_to_int, int_to_bytes
+from core.utils.bits import int_to_bits, bits_to_bytes, bytes_to_bits, bits_to_int
 
 
 def simple_bit_pack(polynomial, end):

@@ -1,12 +1,11 @@
-from typing import List, Tuple
+from typing import List, Tuple, Any
 
 Matrix = List[List[int]]
 
 class Sample:
+    const: Any
 
-    def __init__(self, const) -> None:
-        self.const = None
-        self.shake_256 = None
+    def __init__(self, const) -> None: ...
 
     def sample_in_ball(self, seed: bytes) -> List[int]: ...
 
