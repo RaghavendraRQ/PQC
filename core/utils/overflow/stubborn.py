@@ -1,6 +1,8 @@
 from enum import Enum
 from typing import List
 
+from core.utils.optimizers import mod_symmetric
+
 
 class ConstantMeta(type):
     def __setattr__(cls, key, value):
@@ -17,7 +19,7 @@ class Ring(Enum):
 class NTTModified:
 
     def __init__(self, config, polynomial=None, ring=Ring.RQ):
-        self.polynomial = polynomial or ([0] * 256)
+        self.polynomial = polynomial or [0] * 256
         self.config = config
         self.Ring = ring
 
@@ -67,16 +69,34 @@ class NTTModified:
 
         return NTTModified(self.config, polynomial, Ring.RQ)
 
+    def norm(self):
+        return abs(max([mod_symmetric(element, self.config.Q) for element in self.polynomial]))
+
     def __add__(self, other):
-        result = [(self_x + other_x) % self.config.Q for self_x, other_x in zip(self.polynomial, other.polynomial)]
-        return NTTModified(self.config, result)
+        return NTTModified(self.config, [(self_x + other_x) % self.config.Q for self_x, other_x in zip(self.polynomial,
+                                                                                                       other.polynomial)
+                                         ])
+
+    def __sub__(self, other):
+        return NTTModified(self.config, [(self_x - other_x) % self.config.Q for self_x, other_x in zip(self.polynomial,
+                                                                                                       other.polynomial)
+                                         ], self.ring)
 
     def __mul__(self, other):
-        result = [(self_x * other_x) % self.config.Q for self_x, other_x in zip(self.polynomial, other.polynomial)]
-        return NTTModified(self.config, result)
+        return NTTModified(self.config, [(self_x * other_x) % self.config.Q for self_x, other_x in zip(self.polynomial,
+                                         other.polynomial)], self.ring)
+
+    def __neg__(self):
+        return NTTModified(self.config, [-element for element in self.polynomial], self.ring)
 
     def __repr__(self):
         return f'NTT {self.ring}: len({len(self.polynomial)}), {self.polynomial[0:10]} ...'
+
+    def __getitem__(self, item):
+        return self.polynomial[item]
+
+    def __setitem__(self, key, value):
+        self.polynomial[key] = value
 
 
 class VectorNTT:
@@ -84,7 +104,35 @@ class VectorNTT:
     def __init__(self, config, vector=None, ring=Ring.TQ):
         self.config = config
         self.vector = vector or [NTTModified(self.config) for _ in range(self.config.L)]
-        self.Ring = ring or vector[0].ring
+        self.ring = ring or vector[0].ring
+
+    def __getitem__(self, item):
+        return self.vector[item]
+
+    def from_list(self, lst):
+        self.vector = [NTTModified(element) for element in lst]
+
+    def apply(self, function, axis=0, **kwargs):
+        if axis == 1:
+            return VectorNTT(self.config, [NTTModified(self.config, function(polynomial, kwargs['Q'], kwargs['GAMMA_2'])
+                                                       ) for polynomial in self.vector])
+        return VectorNTT(self.vector, [NTTModified(self.config, [function(element, kwargs['Q'], kwargs['GAMMA_2']) for
+                                                                 element in polynomial]) for polynomial in self.vector])
+
+    def norm(self):
+        return max([polynomial.norm() for polynomial in self.vector])
+
+    def __setitem__(self, key, value):
+        self.vector[key] = value
+
+    def to_list(self):
+        return [vector.polynomial for vector in self.vector]
+
+    def ntt(self):
+        return VectorNTT(self.config, [polynomial.ntt() for polynomial in self.vector])
+
+    def inverse(self):
+        return VectorNTT(self.config, [polynomial.inverse() for polynomial in self.vector], ring=Ring.RQ)
 
     def __repr__(self):
         return (f'VectorNTT object: len ({len(self.vector)})'
@@ -94,6 +142,12 @@ class VectorNTT:
 
     def __add__(self, other):
         return VectorNTT(self.config, [self_ntt + other_ntt for self_ntt, other_ntt in zip(self.vector, other.vector)])
+
+    def __sub__(self, other):
+        return VectorNTT(self.config, [self_ntt - other_ntt for self_ntt, other_ntt in zip(self.vector, other.vector)])
+
+    def __neg__(self):
+        return VectorNTT(self.config, [-polynomial for polynomial in self.vector], self.ring)
 
     def __mul__(self, other):
         if isinstance(other, NTTModified):

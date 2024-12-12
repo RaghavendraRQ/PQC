@@ -10,15 +10,12 @@ def mod_symmetric(m, a):
         a : The positive integer modulus.
 
     Returns:
-        int: The result of m ± mod a in the symmetric range −⌈a/2⌉ < m′ ≤ ⌊a/2⌋.
+        int: The result of m (± mod a) in the symmetric range −⌈a/2⌉ < m′ ≤ ⌊a/2⌋.
     """
     if a <= 0:
         raise ValueError("The modulus 'a' must be a positive integer.")
 
-    # Compute the equivalent modulo in standard range [0, a)
     m_standard = m % a
-
-    # Adjust to the symmetric range −⌈a/2⌉ < m′ ≤ ⌊a/2⌋
     half_a = a / 2
     if m_standard > math.floor(half_a):
         return m_standard - a
@@ -39,7 +36,7 @@ def power2_round(r, Q, D):
 
     r1 = r % Q
     r0 = mod_symmetric(r1, 2 ** D)
-    return (r1 - r0) / 2 ** D, r0
+    return (r1 - r0) // (2 ** D), r0
 
 
 def decompose(r, Q, GAMMA_2):
@@ -55,7 +52,7 @@ def decompose(r, Q, GAMMA_2):
     """
     r1 = r % Q
     r0 = mod_symmetric(r1, 2 * GAMMA_2)
-    if r1 - r0 == Q -1:
+    if r1 - r0 == Q - 1:
         return 0, r0 - 1
     r1 = (r1 - r0) // 2 * GAMMA_2
     return r1, r0

@@ -1,4 +1,5 @@
 from core.utils.advbits import simple_bit_pack, simple_bit_unpack, bit_pack, bit_unpack, hint_bit_pack, hint_bit_unpack
+from core.utils.overflow.stubborn import NTTModified, VectorNTT
 import logging
 
 logging.basicConfig(level=logging.INFO)
@@ -15,7 +16,7 @@ class Encodings:
 
         Args:
             r0: byte string
-            t1: matrix of integers
+            t1: NTT object
 
         Returns:
             bytes: encoded public key
@@ -67,8 +68,8 @@ class Encodings:
         assert -self.const.ETA <= all(s1) <= self.const.ETA, "All Coefficients should be in range [-ETA, ETA]"
         assert -self.const.ETA <= all(s2) <= self.const.ETA, "All Coefficients should be in range [-ETA, ETA]"
         assert -2 ** (self.const.D - 1) + 1 <= all(t0) <= 2 ** (self.const.D - 1), (
-                                                                                "All Coefficients should be in range"
-                                                                                "[2 ^(D -1) + 1, 2^(D-1)]")
+            "All Coefficients should be in range"
+            "[2 ^(D -1) + 1, 2^(D-1)]")
 
         private_key = r0 + k + tr
         for i in range(self.const.L):
@@ -77,7 +78,7 @@ class Encodings:
             private_key += bit_pack(s2[i], self.const.ETA, self.const.ETA)
         for i in range(self.const.K):
             private_key += bit_pack(t0[i], 2 ** (self.const.D - 1) - 1, 2 ** (self.const.D - 1))
-        logging.info(f'Private Key: {len(private_key)}')
+        logging.info(f'Private Key: {len(private_key)}', stacklevel=5)
         return private_key
 
     def private_key_decode(self, private_key):
@@ -113,7 +114,11 @@ class Encodings:
             s2[i] = bit_unpack(z[i], self.const.ETA, self.const.ETA)
         for i in range(self.const.K):
             t0[i] = bit_unpack(w[i], 2 ** (self.const.D - 1) - 1, 2 ** (self.const.D - 1))
-        return r0, k, tr, s1, s2, t0
+        return (r0, k, tr,
+                VectorNTT(self.const, [NTTModified(self.const, s11) for s11 in s1]),
+                VectorNTT(self.const, [NTTModified(self.const, s11) for s11 in s2]),
+                VectorNTT(self.const, [NTTModified(self.const, s11) for s11 in t0]),
+                )
 
     def sign_encode(self, c_hat, z, h):
         """
@@ -126,7 +131,7 @@ class Encodings:
         Returns:
             A signature sigma in byte string
         """
-
+        z, h = z.vector, h.vector
         assert len(c_hat) == self.const.LAMBDA // 4, (f"Length of c_hat should be {self.const.LAMBDA // 4} bytes. Not "
                                                       f"{len(c_hat)}")
         assert -self.const.GAMMA_1 + 1 <= all(z) <= self.const.GAMMA_1, ("All Coefficients should be in range ["
@@ -175,5 +180,5 @@ class Encodings:
 
         w1_ = b''
         for i in range(self.const.K):
-            w1_ += simple_bit_pack(w1[i], (self.const.Q - 1)//(2*self.const.GAMMA_2) - 1)
+            w1_ += simple_bit_pack(w1[i], (self.const.Q - 1) // (2 * self.const.GAMMA_2) - 1)
         return w1_

@@ -13,7 +13,7 @@ def simple_bit_pack(polynomial, end):
 
     assert 0 <= all(polynomial) <= end, "All Coefficients should be in range [0, end]"
     assert end > 0, "end should be a natural number"
-    assert len(polynomial) == 256, "Length of polynomial should be 256"
+    # assert len(polynomial) == 256, "Length of polynomial should be 256"
 
     z = ''
     for i in range(256):

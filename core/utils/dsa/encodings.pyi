@@ -1,6 +1,7 @@
 from typing import Tuple, List, Any
+from core.utils.overflow.stubborn import NTTModified, VectorNTT
 
-Matrix = List[List[int]]
+Matrix = VectorNTT
 
 class Encodings:
     const: Any
