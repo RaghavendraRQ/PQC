@@ -5,7 +5,7 @@ from core.utils.bits import int_to_bytes, bytes_to_bits
 from core.utils.dsa.sampling import Sample
 from core.utils.dsa.encodings import Encodings
 from core.utils.overflow.stubborn import VectorNTT
-from core.utils.optimizers import power2_round, high_bits, low_bits, make_hint
+from core.utils.optimizers import power2_round, high_bits, low_bits, make_hint, mod_symmetric
 
 
 class MLDSA_:
@@ -59,6 +59,7 @@ class MLDSA_:
         repr_message = self._encode_message(tr, bytes(message), 64)
         seed_mask = SHAKE256.new(k + random + repr_message).read(64)
         counter = 0
+        c_hat = None
         z, h = None, None
         while z == h is None:
             y = self.sample.expand_mask(seed_mask, counter)
@@ -69,10 +70,8 @@ class MLDSA_:
             c_cap = c.ntt()
             rs1 = (s1_cap * c_cap).inverse()
             rs2 = (s2_cap * c_cap).inverse()
-            print(f'y: {y.norm()}')
             z = y + rs1
             r0 = (w - rs2).apply(low_bits, 0, Q=self.const.Q, GAMMA_2=self.const.GAMMA_2)
-            print(f'z: {z.norm()} r0: {r0.norm()}')
             if z.norm() >= (self.const.GAMMA_1 - self.const.BETA) or r0.norm() >= (self.const.GAMMA_2 - self.const.BETA):
                 print(f'checking...')
                 z, h = None, None
@@ -82,12 +81,19 @@ class MLDSA_:
                 if rs0.norm() >= self.const.GAMMA_2 or h.norm() > self.const.OMEGA:
                     z, h = None, None
             counter += self.const.L
-        print(f'c_hat: {c_hat}')
-        signature = self.encoding.sign_encode(c_hat, z, h)
+        signature = self.encoding.sign_encode(c_hat, self._compute_z(z), h)
         return signature
 
-    def _encode_message(self, tr, message, length):
+    @staticmethod
+    def _encode_message(tr, message, length):
         return SHAKE256.new(bytes(bytes_to_bits(tr)) + message).read(length)
+
+    def _compute_z(self, z):
+        z_ = z
+        for i in range(self.const.K):
+            for j in range(256):
+                z_[i][j] = mod_symmetric(z[i][j], self.const.Q)
+        return z_
 
     def compute_make_hint(self, vec1, vec2):
         result = VectorNTT(self.const)

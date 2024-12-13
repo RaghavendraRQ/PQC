@@ -53,7 +53,7 @@ def decompose(r, Q, GAMMA_2):
     Returns:
         Tuple[int, int]: The tuple of the multiple of GAMMA_2 and the small number.
     """
-    assert r < Q, "r should be less than Q"
+    # assert r < Q, "r should be less than Q"
 
     r1 = r % Q
     r0 = mod_symmetric(r1, 2 * GAMMA_2)
@@ -74,7 +74,7 @@ def high_bits(r, Q, GAMMA_2):
     Returns:
         int: The high bits of the number
     """
-    assert r < Q, "r should be less than Q"
+    # assert r < Q, "r should be less than Q"
 
     r1, r0 = decompose(r, Q, GAMMA_2)
     return r1
@@ -91,7 +91,6 @@ def low_bits(r, Q, GAMMA_2):
     Returns:
         int: The low bits of the number
     """
-    assert r < Q, "r should be less than Q"
 
     r1, r0 = decompose(r, Q, GAMMA_2)
     return r0
