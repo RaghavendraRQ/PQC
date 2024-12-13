@@ -65,20 +65,19 @@ class Encodings:
         """
         assert len(r0) == len(k) == len(tr) // 2 == 32, (f"Length of r0, k, tr should be 32 bytes {len(r0), len(k)}"
                                                          f"{len(tr)}")
-        assert -self.const.ETA <= all(s1) <= self.const.ETA, "All Coefficients should be in range [-ETA, ETA]"
-        assert -self.const.ETA <= all(s2) <= self.const.ETA, "All Coefficients should be in range [-ETA, ETA]"
-        assert -2 ** (self.const.D - 1) + 1 <= all(t0) <= 2 ** (self.const.D - 1), (
+        assert s1.check(-self.const.ETA, self.const.ETA), "All Coefficients should be in range [-ETA, ETA]"
+        assert s2.check(-self.const.ETA, self.const.ETA), "All Coefficients should be in range [-ETA, ETA]"
+        assert t0.check(-2 ** (self.const.D - 1) + 1, 2 ** (self.const.D - 1)), (
             "All Coefficients should be in range"
             "[2 ^(D -1) + 1, 2^(D-1)]")
 
         private_key = r0 + k + tr
         for i in range(self.const.L):
-            private_key += bit_pack(s1[i], self.const.ETA, self.const.ETA)
+            private_key += bit_pack(s1[i].polynomial, self.const.ETA, self.const.ETA)
         for i in range(self.const.K):
-            private_key += bit_pack(s2[i], self.const.ETA, self.const.ETA)
+            private_key += bit_pack(s2[i].polynomial, self.const.ETA, self.const.ETA)
         for i in range(self.const.K):
-            private_key += bit_pack(t0[i], 2 ** (self.const.D - 1) - 1, 2 ** (self.const.D - 1))
-        logging.info(f'Private Key: {len(private_key)}', stacklevel=5)
+            private_key += bit_pack(t0[i].polynomial, 2 ** (self.const.D - 1) - 1, 2 ** (self.const.D - 1))
         return private_key
 
     def private_key_decode(self, private_key):
@@ -131,17 +130,16 @@ class Encodings:
         Returns:
             A signature sigma in byte string
         """
-        z, h = z.vector, h.vector
         assert len(c_hat) == self.const.LAMBDA // 4, (f"Length of c_hat should be {self.const.LAMBDA // 4} bytes. Not "
                                                       f"{len(c_hat)}")
-        assert -self.const.GAMMA_1 + 1 <= all(z) <= self.const.GAMMA_1, ("All Coefficients should be in range ["
-                                                                         "-GAMMA_1+1, GAMMA_1]")
-        assert all(h) in [0, 1], "All Coefficients should be 0 or 1"
+        assert z.check(-self.const.GAMMA_1 + 1, self.const.GAMMA_1), ("All Coefficients should be in range ["
+                                                                      "-GAMMA_1+1, GAMMA_1]")
+        assert h.check(0, 1), "All Coefficients should be 0 or 1"
 
         sigma = c_hat
         for i in range(self.const.L):
-            sigma += bit_pack(z[i], self.const.GAMMA_1 - 1, self.const.GAMMA_1)
-        sigma += hint_bit_pack(h, self.const.K, self.const.OMEGA)
+            sigma += bit_pack(z[i].polynomial, self.const.GAMMA_1 - 1, self.const.GAMMA_1)
+        sigma += hint_bit_pack(h.to_list(), self.const.K, self.const.OMEGA)
         return sigma
 
     def sign_decode(self, sigma):
@@ -177,8 +175,9 @@ class Encodings:
         Returns:
             A byte string of w1
         """
+        # assert w1.check(0, (self.const.Q - 1) // (2 * self.const.GAMMA_2) - 1), "Coefficients are too high"
 
         w1_ = b''
         for i in range(self.const.K):
-            w1_ += simple_bit_pack(w1[i], (self.const.Q - 1) // (2 * self.const.GAMMA_2) - 1)
+            w1_ += simple_bit_pack(w1[i].polynomial, (self.const.Q - 1) // (2 * self.const.GAMMA_2) - 1)
         return w1_

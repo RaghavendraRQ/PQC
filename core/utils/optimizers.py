@@ -6,8 +6,8 @@ def mod_symmetric(m, a):
     Compute the symmetric modulo operation.
 
     Args:
-        m : The integer input.
-        a : The positive integer modulus.
+        m (int): The integer input.
+        a (int): The positive integer modulus.
 
     Returns:
         int: The result of m (± mod a) in the symmetric range −⌈a/2⌉ < m′ ≤ ⌊a/2⌋.
@@ -16,8 +16,11 @@ def mod_symmetric(m, a):
         raise ValueError("The modulus 'a' must be a positive integer.")
 
     m_standard = m % a
-    half_a = a / 2
-    if m_standard > math.floor(half_a):
+
+    half_a = a / 2  # Floating-point value for precise ceiling and floor handling
+    upper_bound = math.floor(half_a)  # ⌊a/2⌋
+
+    if m_standard > upper_bound:
         return m_standard - a
     return m_standard
 
@@ -50,11 +53,13 @@ def decompose(r, Q, GAMMA_2):
     Returns:
         Tuple[int, int]: The tuple of the multiple of GAMMA_2 and the small number.
     """
+    assert r < Q, "r should be less than Q"
+
     r1 = r % Q
     r0 = mod_symmetric(r1, 2 * GAMMA_2)
     if r1 - r0 == Q - 1:
         return 0, r0 - 1
-    r1 = (r1 - r0) // 2 * GAMMA_2
+    r1 = (r1 - r0) // (2 * GAMMA_2)
     return r1, r0
 
 
@@ -69,6 +74,8 @@ def high_bits(r, Q, GAMMA_2):
     Returns:
         int: The high bits of the number
     """
+    assert r < Q, "r should be less than Q"
+
     r1, r0 = decompose(r, Q, GAMMA_2)
     return r1
 
@@ -84,6 +91,8 @@ def low_bits(r, Q, GAMMA_2):
     Returns:
         int: The low bits of the number
     """
+    assert r < Q, "r should be less than Q"
+
     r1, r0 = decompose(r, Q, GAMMA_2)
     return r0
 
@@ -101,6 +110,9 @@ def make_hint(z, r, Q, GAMMA_2):
     Returns:
         bool: True if adding z to r alters the high bits of r, False otherwise.
     """
+    assert r < Q, "r should be less than Q"
+    assert z < Q, "z should be less than Q"
+
     r1 = high_bits(r, Q, GAMMA_2)
     v1 = high_bits(r + z, Q, GAMMA_2)
     return r1 != v1
@@ -119,6 +131,8 @@ def use_hint(h, r, Q, GAMMA_2):
     Returns:
         int: The number after applying the hint.
     """
+    assert r < Q, "r should be less than Q"
+
     m = (Q - 1) // (2 * GAMMA_2)
     r1, r0 = decompose(r, Q, GAMMA_2)
     if h and r0 > 0:

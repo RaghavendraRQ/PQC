@@ -1,4 +1,5 @@
 from Crypto.Hash import SHAKE256
+from Crypto.Random import get_random_bytes
 
 from core.utils.bits import int_to_bytes, bytes_to_bits
 from core.utils.dsa.sampling import Sample
@@ -25,14 +26,11 @@ class MLDSA_:
         """
         assert len(seed) == 32, "length of the seed should be 32 bytes."
 
-        shake_256 = SHAKE256.new()
-        shake_256.update(seed + int_to_bytes(self.const.K, 1) + int_to_bytes(self.const.K, 1))
-        hashed = shake_256.read(128)
+        hashed = SHAKE256.new(seed + int_to_bytes(self.const.K, 1) + int_to_bytes(self.const.L, 1)).read(128)
         seed_A, seed_S, k = hashed[:32], hashed[32:96], hashed[96:]
         matrix_vector = self.sample.expand_A(seed_A)
         s1, s2 = self.sample.expand_S(seed_S)
-        t = VectorNTT(self.const, [s11.ntt() for s11 in s1.vector]) * matrix_vector
-        t = VectorNTT(self.const, [tt.inverse() for tt in t.vector]) + s2
+        t = (s1.ntt() * matrix_vector).inverse() + s2
         t1, t0 = VectorNTT(self.const), VectorNTT(self.const)
         for i in range(self.const.K):
             for j in range(256):
@@ -69,11 +67,12 @@ class MLDSA_:
             c_hat = SHAKE256.new(repr_message + self.encoding.w1_encode(w1)).read(self.const.LAMBDA // 4)
             c = self.sample.sample_in_ball(c_hat)
             c_cap = c.ntt()
-            print(f'c: {c_cap}')
             rs1 = (s1_cap * c_cap).inverse()
             rs2 = (s2_cap * c_cap).inverse()
+            print(f'y: {y.norm()}')
             z = y + rs1
             r0 = (w - rs2).apply(low_bits, 0, Q=self.const.Q, GAMMA_2=self.const.GAMMA_2)
+            print(f'z: {z.norm()} r0: {r0.norm()}')
             if z.norm() >= (self.const.GAMMA_1 - self.const.BETA) or r0.norm() >= (self.const.GAMMA_2 - self.const.BETA):
                 print(f'checking...')
                 z, h = None, None
@@ -83,6 +82,7 @@ class MLDSA_:
                 if rs0.norm() >= self.const.GAMMA_2 or h.norm() > self.const.OMEGA:
                     z, h = None, None
             counter += self.const.L
+        print(f'c_hat: {c_hat}')
         signature = self.encoding.sign_encode(c_hat, z, h)
         return signature
 

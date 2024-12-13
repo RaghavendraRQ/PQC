@@ -4,15 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="64dc7b8e-59ed-49f1-bf06-7d1335ead3e9" name="Changes" comment="create NTTModified, vector classes with best features">
+    <list default="true" id="64dc7b8e-59ed-49f1-bf06-7d1335ead3e9" name="Changes" comment="Create sign method in MLDSA_.py class. Want to fix it...">
+      <change afterPath="$PROJECT_DIR$/core/tests/testextra.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/subroutines/MLDSA_.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/subroutines/MLDSA_.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/subroutines/MLDSA_.pyi" beforeDir="false" afterPath="$PROJECT_DIR$/core/subroutines/MLDSA_.pyi" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/tests/testbit.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/tests/testbit.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/utils/advbits.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/utils/advbits.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/utils/dsa/encodings.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/utils/dsa/encodings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/utils/dsa/encodings.pyi" beforeDir="false" afterPath="$PROJECT_DIR$/core/utils/dsa/encodings.pyi" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/utils/dsa/sampling.pyi" beforeDir="false" afterPath="$PROJECT_DIR$/core/utils/dsa/sampling.pyi" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/utils/optimizers.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/utils/optimizers.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/utils/overflow/stubborn.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/utils/overflow/stubborn.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/utils/overflow/stubborn.pyi" beforeDir="false" afterPath="$PROJECT_DIR$/core/utils/overflow/stubborn.pyi" afterDir="false" />
@@ -25,8 +23,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Python Script" />
         <option value="Python Stub" />
+        <option value="Python Script" />
       </list>
     </option>
   </component>
@@ -72,6 +70,7 @@
     &quot;Python.sampleNtt.executor&quot;: &quot;Run&quot;,
     &quot;Python.shake.executor&quot;: &quot;Run&quot;,
     &quot;Python.testbit.executor&quot;: &quot;Run&quot;,
+    &quot;Python.testextra.executor&quot;: &quot;Run&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;git-widget-placeholder&quot;: &quot;mldsa&quot;,
     &quot;last_opened_file_path&quot;: &quot;/home/raghavendra/Myworkspace/CyberSecurity/PQC/PQC&quot;,
@@ -84,28 +83,6 @@
     </key>
   </component>
   <component name="RunManager" selected="Python.testbit">
-    <configuration name="MLKEM" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="PQC" />
-      <option name="ENV_FILES" value="" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/core/algorithms" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/core/algorithms/MLKEM.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
     <configuration name="MLKEM_" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="PQC" />
       <option name="ENV_FILES" value="" />
@@ -194,13 +171,35 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="testextra" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="PQC" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/core/tests" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/core/tests/testextra.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <recent_temporary>
       <list>
         <item itemvalue="Python.testbit" />
+        <item itemvalue="Python.testextra" />
         <item itemvalue="Python.dsa44" />
         <item itemvalue="Python.main" />
         <item itemvalue="Python.MLKEM_" />
-        <item itemvalue="Python.MLKEM" />
       </list>
     </recent_temporary>
   </component>
@@ -325,7 +324,15 @@
       <option name="project" value="LOCAL" />
       <updated>1733937644327</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="Create sign method in MLDSA_.py class. Want to fix it...">
+      <option name="closed" value="true" />
+      <created>1733997916255</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1733997916255</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -366,6 +373,7 @@
     <MESSAGE value="Complete encodings.py class with all the methods tested" />
     <MESSAGE value="Change the docs style to google. start sampling.py" />
     <MESSAGE value="create NTTModified, vector classes with best features" />
-    <option name="LAST_COMMIT_MESSAGE" value="create NTTModified, vector classes with best features" />
+    <MESSAGE value="Create sign method in MLDSA_.py class. Want to fix it..." />
+    <option name="LAST_COMMIT_MESSAGE" value="Create sign method in MLDSA_.py class. Want to fix it..." />
   </component>
 </project>

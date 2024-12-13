@@ -72,6 +72,11 @@ class NTTModified:
     def norm(self):
         return abs(max([mod_symmetric(element, self.config.Q) for element in self.polynomial]))
 
+    def check(self, start, end=None):
+        if end is None:
+            return all(element <= start for element in self.polynomial)
+        return all(start <= element <= end for element in self.polynomial)
+
     def __add__(self, other):
         return NTTModified(self.config, [(self_x + other_x) % self.config.Q for self_x, other_x in zip(self.polynomial,
                                                                                                        other.polynomial)
@@ -87,7 +92,7 @@ class NTTModified:
                                          other.polynomial)], self.ring)
 
     def __neg__(self):
-        return NTTModified(self.config, [-element for element in self.polynomial], self.ring)
+        return NTTModified(self.config, [(-element) % self.config.Q for element in self.polynomial], self.ring)
 
     def __repr__(self):
         return f'NTT {self.ring}: len({len(self.polynomial)}), {self.polynomial[0:10]} ...'
@@ -134,6 +139,11 @@ class VectorNTT:
     def inverse(self):
         return VectorNTT(self.config, [polynomial.inverse() for polynomial in self.vector], ring=Ring.RQ)
 
+    def check(self, start, end=None):
+        if end is None:
+            return all(polynomial.check(start) for polynomial in self.vector)
+        return all(polynomial.check(start, end) for polynomial in self.vector)
+
     def __repr__(self):
         return (f'VectorNTT object: len ({len(self.vector)})'
                 f'\n\t{self.vector[0]}, '
@@ -151,11 +161,10 @@ class VectorNTT:
 
     def __mul__(self, other):
         if isinstance(other, NTTModified):
-            return VectorNTT(self.config, [self_ntt + other for self_ntt in self.vector])
+            return VectorNTT(self.config, [self_ntt * other for self_ntt in self.vector])
         if isinstance(other, List):
             result = VectorNTT(self.config, [NTTModified(self.config) for _ in range(self.config.K)])
             for i in range(self.config.K):
                 for j in range(self.config.L):
-                    result.vector[j] = result.vector[j] + (self.vector[j] * other[i].vector[j])
+                    result.vector[j] = result.vector[j] + (self.vector[j] * other[i][j])
             return result
-
