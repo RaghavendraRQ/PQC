@@ -5,7 +5,7 @@ from core.utils.bits import int_to_bytes, bytes_to_bits
 from core.utils.dsa.sampling import Sample
 from core.utils.dsa.encodings import Encodings
 from core.utils.overflow.stubborn import VectorNTT
-from core.utils.optimizers import power2_round, high_bits, low_bits, make_hint, mod_symmetric
+from core.utils.optimizers import power2_round, high_bits, low_bits, make_hint, mod_symmetric, use_hint
 
 
 class MLDSA_:
@@ -84,6 +84,30 @@ class MLDSA_:
         signature = self.encoding.sign_encode(c_hat, self._compute_z(z), h)
         return signature
 
+    def verify(self, public_key, message, signature):
+        """
+        Verifies the signature of a message
+        Args:
+            public_key: byte string representation of public key
+            message: bit string of a message
+            signature: byte string of a signature
+
+        Returns:
+            bool: True if signature is valid, False otherwise
+        """
+        seed_A, t1 = self.encoding.public_key_decode(public_key)
+        c_hat, z, h = self.encoding.sign_decode(signature)
+        if h is None:
+            return False
+        matrix_vector = self.sample.expand_A(seed_A)
+        tr = SHAKE256.new(public_key).read(64)
+        repr_message = self._encode_message(tr, bytes(message), 64)
+        c = self.sample.sample_in_ball(c_hat)
+        w_approx = (z.ntt() * matrix_vector - t1.ntt() * c.ntt()).inverse()
+        w1 = self.compute_use_hint(w_approx, h)
+        c_hat_ = SHAKE256.new(repr_message + self.encoding.w1_encode(w1)).read(self.const.LAMBDA // 4)
+        return c_hat == c_hat_ and z.norm() < (self.const.GAMMA_1 - self.const.BETA)
+
     @staticmethod
     def _encode_message(tr, message, length):
         return SHAKE256.new(bytes(bytes_to_bits(tr)) + message).read(length)
@@ -100,4 +124,11 @@ class MLDSA_:
         for i in range(self.const.L):
             for j in range(256):
                 result[i][j] = make_hint(vec1[i][j], vec2[i][j], self.const.Q, self.const.GAMMA_2)
+        return result
+
+    def compute_use_hint(self, vec1, hint):
+        result = VectorNTT(self.const)
+        for i in range(self.const.K):
+            for j in range(256):
+                result[i][j] = use_hint(vec1[i][j], hint[i][j], self.const.Q, self.const.GAMMA_2)
         return result

@@ -4,16 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="64dc7b8e-59ed-49f1-bf06-7d1335ead3e9" name="Changes" comment="Working on sign. problem in decompose function and keygen">
-      <change afterPath="$PROJECT_DIR$/core/tests/testextra.py" afterDir="false" />
+    <list default="true" id="64dc7b8e-59ed-49f1-bf06-7d1335ead3e9" name="Changes" comment="Fix sign method and signature is correctly calculated">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/subroutines/MLDSA_.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/subroutines/MLDSA_.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/tests/testbit.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/tests/testbit.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/utils/advbits.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/utils/advbits.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/utils/dsa/encodings.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/utils/dsa/encodings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/subroutines/MLDSA_.pyi" beforeDir="false" afterPath="$PROJECT_DIR$/core/subroutines/MLDSA_.pyi" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/utils/optimizers.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/utils/optimizers.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/utils/overflow/stubborn.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/utils/overflow/stubborn.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/utils/overflow/stubborn.pyi" beforeDir="false" afterPath="$PROJECT_DIR$/core/utils/overflow/stubborn.pyi" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -340,7 +335,15 @@
       <option name="project" value="LOCAL" />
       <updated>1734113759702</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="Fix sign method and signature is correctly calculated">
+      <option name="closed" value="true" />
+      <created>1734114305188</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1734114305188</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -383,6 +386,7 @@
     <MESSAGE value="create NTTModified, vector classes with best features" />
     <MESSAGE value="Create sign method in MLDSA_.py class. Want to fix it..." />
     <MESSAGE value="Working on sign. problem in decompose function and keygen" />
-    <option name="LAST_COMMIT_MESSAGE" value="Working on sign. problem in decompose function and keygen" />
+    <MESSAGE value="Fix sign method and signature is correctly calculated" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fix sign method and signature is correctly calculated" />
   </component>
 </project>
