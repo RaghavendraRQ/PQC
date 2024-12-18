@@ -77,6 +77,13 @@ class NTTModified:
             return all(element <= start for element in self.polynomial)
         return all(start <= element <= end for element in self.polynomial)
 
+    def apply(self, function, *args, other=None):
+        if other:
+            return NTTModified(self.config, [function(element[0], element[1], *args) for element in zip(self.polynomial,
+                                                                                                        other.polynomial
+                                                                                                        )])
+        return NTTModified(self.config, [function(element, *args) for element in self.polynomial])
+
     def __add__(self, other):
         return NTTModified(self.config, [(self_x + other_x) % self.config.Q for self_x, other_x in zip(self.polynomial,
                                                                                                        other.polynomial)
@@ -88,6 +95,8 @@ class NTTModified:
                                          ], self.ring)
 
     def __mul__(self, other):
+        if isinstance(other, int):
+            return NTTModified(self.config, [(self_x * other) for self_x in self.polynomial])
         return NTTModified(self.config, [(self_x * other_x) % self.config.Q for self_x, other_x in zip(self.polynomial,
                                          other.polynomial)], self.ring)
 
@@ -115,14 +124,13 @@ class VectorNTT:
         return self.vector[item]
 
     def from_list(self, lst):
-        self.vector = [NTTModified(element) for element in lst]
+        self.vector = [NTTModified(self.config, element) for element in lst]
 
-    def apply(self, function, axis=0, **kwargs):
-        if axis == 1:
-            return VectorNTT(self.config, [NTTModified(self.config, function(polynomial, kwargs['Q'], kwargs['GAMMA_2'])
-                                                       ) for polynomial in self.vector])
-        return VectorNTT(self.vector, [NTTModified(self.config, [function(element, kwargs['Q'], kwargs['GAMMA_2']) for
-                                                                 element in polynomial]) for polynomial in self.vector])
+    def apply(self, function, *args, other=None):
+        if other:
+            return VectorNTT(self.config, [vector[0].apply(function, *args, other=vector[1]) for vector in zip(
+                self.vector, other.vector)])
+        return VectorNTT(self.config, [vector.apply(function, *args) for vector in self.vector])
 
     def norm(self):
         return max([polynomial.norm() for polynomial in self.vector])
@@ -166,5 +174,8 @@ class VectorNTT:
             result = VectorNTT(self.config, [NTTModified(self.config) for _ in range(self.config.K)])
             for i in range(self.config.K):
                 for j in range(self.config.L):
-                    result.vector[j] = result.vector[j] + (self.vector[j] * other[i][j])
+                    result[j] = result[j] + (self.vector[j] * other[i][j])
             return result
+        if isinstance(other, int):
+            return VectorNTT(self.config, [polynomial * other for polynomial in self.vector])
+

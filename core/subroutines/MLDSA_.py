@@ -1,5 +1,4 @@
 from Crypto.Hash import SHAKE256
-from Crypto.Random import get_random_bytes
 
 from core.utils.bits import int_to_bytes, bytes_to_bits
 from core.utils.dsa.sampling import Sample
@@ -14,6 +13,7 @@ class MLDSA_:
         self.const = const
         self.sample = Sample(const)
         self.encoding = Encodings(self.const)
+        self.check = None
 
     def keygen(self, seed):
         """
@@ -38,6 +38,8 @@ class MLDSA_:
         public_key = self.encoding.public_key_encode(seed_A, t1)
         tr = SHAKE256.new(public_key).read(64)
         private_key = self.encoding.private_key_encode(seed_A, k, tr, s1, s2, t0)
+        print(f't (keygen): {t}')
+        self.check = t
         return public_key, private_key
 
     def sign(self, private_key, message, random):
@@ -58,30 +60,37 @@ class MLDSA_:
         matrix_vector = self.sample.expand_A(seed_A)
         repr_message = self._encode_message(tr, bytes(message), 64)
         seed_mask = SHAKE256.new(k + random + repr_message).read(64)
-        counter = 0
+        counter, iterations = 0, 0
         c_hat = None
-        z, h = None, None
-        while z == h is None:
+        signer_response, hint = None, None
+        while signer_response is None or hint is None:
+            iterations += 1
             y = self.sample.expand_mask(seed_mask, counter)
             w = (y.ntt() * matrix_vector).inverse()
-            w1 = w.apply(high_bits, 0, Q=self.const.Q, GAMMA_2=self.const.GAMMA_2)
-            c_hat = SHAKE256.new(repr_message + self.encoding.w1_encode(w1)).read(self.const.LAMBDA // 4)
-            c = self.sample.sample_in_ball(c_hat)
-            c_cap = c.ntt()
+            commitment = w.apply(high_bits, self.const.Q, self.const.GAMMA_2)
+            c_hat = SHAKE256.new(repr_message + self.encoding.w1_encode(commitment)).read(self.const.LAMBDA // 4)
+            challenge = self.sample.sample_in_ball(c_hat)
+            c_cap = challenge.ntt()
             rs1 = (s1_cap * c_cap).inverse()
             rs2 = (s2_cap * c_cap).inverse()
-            z = y + rs1
-            r0 = (w - rs2).apply(low_bits, 0, Q=self.const.Q, GAMMA_2=self.const.GAMMA_2)
-            if z.norm() >= (self.const.GAMMA_1 - self.const.BETA) or r0.norm() >= (self.const.GAMMA_2 - self.const.BETA):
-                print(f'checking...')
-                z, h = None, None
+            signer_response = y + rs1
+            r0 = (w - rs2).apply(low_bits, self.const.Q, self.const.GAMMA_2)
+            if signer_response.norm() >= (self.const.GAMMA_1 - self.const.BETA) or r0.norm() >= (self.const.GAMMA_2 -
+                                                                                                 self.const.BETA):
+                print(f'Trying ...')
+                signer_response, hint = None, None
             else:
                 rs0 = (t0_cap * c_cap).inverse()
-                h = self.compute_make_hint(-rs0, w - rs2 + rs0)
-                if rs0.norm() >= self.const.GAMMA_2 or h.norm() > self.const.OMEGA:
-                    z, h = None, None
+                hint = (-rs0).apply(make_hint, self.const.Q, self.const.GAMMA_2, other=(w - rs2) + rs0)
+                if rs0.norm() >= self.const.GAMMA_2 or self.count_ones(hint) > self.const.OMEGA:
+                    print(f'Edge case detected.Trying ...')
+                    signer_response, hint = None, None
             counter += self.const.L
-        signature = self.encoding.sign_encode(c_hat, self._compute_z(z), h)
+        print(f'successful after {iterations} iterations')
+        print('***********Prover side************')
+        print(f'commitment: {commitment}')
+        print('*********************************')
+        signature = self.encoding.sign_encode(c_hat, signer_response.apply(mod_symmetric, self.const.Q), hint)
         return signature
 
     def verify(self, public_key, message, signature):
@@ -96,39 +105,35 @@ class MLDSA_:
             bool: True if signature is valid, False otherwise
         """
         seed_A, t1 = self.encoding.public_key_decode(public_key)
-        c_hat, z, h = self.encoding.sign_decode(signature)
-        if h is None:
+        c_hat, signer_response, hint = self.encoding.sign_decode(signature)
+        if hint is None:
+            print('Argh! Here we go again')
             return False
         matrix_vector = self.sample.expand_A(seed_A)
         tr = SHAKE256.new(public_key).read(64)
         repr_message = self._encode_message(tr, bytes(message), 64)
-        c = self.sample.sample_in_ball(c_hat)
-        w_approx = (z.ntt() * matrix_vector - t1.ntt() * c.ntt()).inverse()
-        w1 = self.compute_use_hint(w_approx, h)
-        c_hat_ = SHAKE256.new(repr_message + self.encoding.w1_encode(w1)).read(self.const.LAMBDA // 4)
-        return c_hat == c_hat_ and z.norm() < (self.const.GAMMA_1 - self.const.BETA)
+        challenge = self.sample.sample_in_ball(c_hat)
+
+        scaled_t1 = (t1 * (2 ** self.const.D))
+        scaled_t1 = scaled_t1.apply(lambda x: x % self.const.Q).ntt()
+        scaled_t1 = self.check.ntt()
+        commitment_approx = (
+                (signer_response.ntt() * matrix_vector) - (scaled_t1 * challenge.ntt())
+        ).inverse()
+        commitment = hint.apply(use_hint, self.const.Q, self.const.GAMMA_2, other=commitment_approx)
+
+        c_hat_decoded = SHAKE256.new(repr_message + self.encoding.w1_encode(commitment)).read(self.const.LAMBDA // 4)
+        print('***********Verifier side************')
+        print(f'scaled_t1: {scaled_t1}')
+        print('************************************')
+        return c_hat == c_hat_decoded and signer_response.norm() < (self.const.GAMMA_1 - self.const.BETA)
 
     @staticmethod
     def _encode_message(tr, message, length):
         return SHAKE256.new(bytes(bytes_to_bits(tr)) + message).read(length)
 
-    def _compute_z(self, z):
-        z_ = z
+    def count_ones(self, hint):
+        count = 0
         for i in range(self.const.K):
-            for j in range(256):
-                z_[i][j] = mod_symmetric(z[i][j], self.const.Q)
-        return z_
-
-    def compute_make_hint(self, vec1, vec2):
-        result = VectorNTT(self.const)
-        for i in range(self.const.L):
-            for j in range(256):
-                result[i][j] = make_hint(vec1[i][j], vec2[i][j], self.const.Q, self.const.GAMMA_2)
-        return result
-
-    def compute_use_hint(self, vec1, hint):
-        result = VectorNTT(self.const)
-        for i in range(self.const.K):
-            for j in range(256):
-                result[i][j] = use_hint(vec1[i][j], hint[i][j], self.const.Q, self.const.GAMMA_2)
-        return result
+            count += hint[i].polynomial.count(1)
+        return count

@@ -1,4 +1,4 @@
-from typing import Tuple, Any, List
+from typing import Tuple, Any, List, Optional
 
 from core.utils.dsa.encodings import Encodings
 from core.utils.dsa.sampling import Sample
@@ -8,6 +8,7 @@ class MLDSA_:
     const: Any
     sample: Sample
     encoding: Encodings
+    check: Optional[VectorNTT]
 
     def __init__(self, const: Any) -> None: ...
 
@@ -19,6 +20,4 @@ class MLDSA_:
 
     def _encode_message(self, tr: bytes, message: bytes, length: int): ...
 
-    def _compute_z(self, z: VectorNTT) -> VectorNTT: ...
-
-    def compute_make_hint(self, vec1: VectorNTT, vec2: VectorNTT) -> VectorNTT: ...
+    def count_ones(self, hint: VectorNTT) -> int: ...

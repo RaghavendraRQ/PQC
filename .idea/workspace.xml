@@ -4,11 +4,20 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="64dc7b8e-59ed-49f1-bf06-7d1335ead3e9" name="Changes" comment="Fix sign method and signature is correctly calculated">
+    <list default="true" id="64dc7b8e-59ed-49f1-bf06-7d1335ead3e9" name="Changes" comment="Halfway through the verify function in MLDSA_.py. almost working in it">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/algorithms/MLDSA.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/algorithms/MLDSA.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/algorithms/MLDSA.pyi" beforeDir="false" afterPath="$PROJECT_DIR$/core/algorithms/MLDSA.pyi" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/subroutines/MLDSA_.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/subroutines/MLDSA_.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/subroutines/MLDSA_.pyi" beforeDir="false" afterPath="$PROJECT_DIR$/core/subroutines/MLDSA_.pyi" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/tests/testbit.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/tests/testbit.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/tests/testextra.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/tests/testextra.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/utils/advbits.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/utils/advbits.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/utils/dsa/encodings.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/utils/dsa/encodings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/utils/dsa/sampling.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/utils/dsa/sampling.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/utils/optimizers.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/utils/optimizers.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/utils/overflow/stubborn.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/utils/overflow/stubborn.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/utils/overflow/stubborn.pyi" beforeDir="false" afterPath="$PROJECT_DIR$/core/utils/overflow/stubborn.pyi" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -77,7 +86,7 @@
       <recent name="$PROJECT_DIR$" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.testbit">
+  <component name="RunManager" selected="Python.testextra">
     <configuration name="MLKEM_" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="PQC" />
       <option name="ENV_FILES" value="" />
@@ -190,8 +199,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.testbit" />
         <item itemvalue="Python.testextra" />
+        <item itemvalue="Python.testbit" />
         <item itemvalue="Python.dsa44" />
         <item itemvalue="Python.main" />
         <item itemvalue="Python.MLKEM_" />
@@ -343,7 +352,15 @@
       <option name="project" value="LOCAL" />
       <updated>1734114305188</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="Halfway through the verify function in MLDSA_.py. almost working in it">
+      <option name="closed" value="true" />
+      <created>1734115149216</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1734115149216</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -387,6 +404,16 @@
     <MESSAGE value="Create sign method in MLDSA_.py class. Want to fix it..." />
     <MESSAGE value="Working on sign. problem in decompose function and keygen" />
     <MESSAGE value="Fix sign method and signature is correctly calculated" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fix sign method and signature is correctly calculated" />
+    <MESSAGE value="Halfway through the verify function in MLDSA_.py. almost working in it" />
+    <option name="LAST_COMMIT_MESSAGE" value="Halfway through the verify function in MLDSA_.py. almost working in it" />
+  </component>
+  <component name="XDebuggerManager">
+    <watches-manager>
+      <configuration name="PythonConfigurationType">
+        <watch expression="matrix_vector" />
+        <watch expression="matrix_vector[3]" />
+        <watch expression="hint" language="Python" />
+      </configuration>
+    </watches-manager>
   </component>
 </project>

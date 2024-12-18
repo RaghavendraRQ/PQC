@@ -69,7 +69,6 @@ def bit_unpack(byte_string, start, end):
     w = []
     for i in range(256):
         w.append(end - bits_to_int(''.join([str(z[i * c + j]) for j in range(c)]), c))
-
     return w
 
 

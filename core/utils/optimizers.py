@@ -114,7 +114,7 @@ def make_hint(z, r, Q, GAMMA_2):
 
     r1 = high_bits(r, Q, GAMMA_2)
     v1 = high_bits(r + z, Q, GAMMA_2)
-    return r1 != v1
+    return 1 if r1 != v1 else 0
 
 
 def use_hint(h, r, Q, GAMMA_2):
@@ -134,8 +134,8 @@ def use_hint(h, r, Q, GAMMA_2):
 
     m = (Q - 1) // (2 * GAMMA_2)
     r1, r0 = decompose(r, Q, GAMMA_2)
-    if h and r0 > 0:
+    if h == 1 and r0 > 0:
         return (r1 + 1) % m
-    elif h and r0 <= 0:
+    elif h == 1 and r0 <= 0:
         return (r1 - 1) % m
     return r1

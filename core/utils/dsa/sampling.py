@@ -39,7 +39,7 @@ class Sample:
         """
         Samples a polynomial from Tq
         Args:
-            seed: A Random byte seed
+            seed: A 34 Random byte seed
 
         Returns:
             List: An element belongs to Tq
@@ -61,7 +61,7 @@ class Sample:
         """
         Sample an element from R with coefficients [-ETA, ETA] computed via rejection from RO
         Args:
-            seed: A Random byte seed
+            seed: A 66 Random byte seed
 
         Returns:
             List: An element belongs to R
@@ -88,7 +88,7 @@ class Sample:
         """
         Samples a Matrix A from T^k*l
         Args:
-            seed: a 32 byte string for RBG
+            seed: A 32 byte string for RBG
 
         Returns:
             Matrix of List: A_cap from Tq
@@ -105,7 +105,7 @@ class Sample:
         """
         Samples vectors from s1, s2 from Rk with coefficients in range[-ETA, ETA]
         Args:
-            seed: 64 byte random string
+            seed: A 64 byte random string
 
         Returns:
             Tuple of Matrices: vectors s1, s2
@@ -124,12 +124,14 @@ class Sample:
         """
         Samples a vector from Rl coefficients in range[-GAMMA_1 + 1, GAMMA_1]
         Args:
-            seed:
-            coefficient:
+            seed: A 64 byte seed
+            coefficient: A integer
 
         Returns:
-
+            VectorNTT: A vector from Rl
         """
+        assert len(seed) == 64, "Length of the seed should be 64 bytes."
+
         y = [NTTModified(self.const) for _ in range(self.const.L)]
         c = 1 + (self.const.GAMMA_1 - 1).bit_length()
         for i in range(self.const.L):

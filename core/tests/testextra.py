@@ -1,7 +1,11 @@
-from core.utils.optimizers import high_bits, mod_symmetric
-import core.constants.dsa44 as config
+from core.algorithms.MLDSA import MLDSA
 
-r = 2448666
-r1 = high_bits(r, config.Q, config.GAMMA_2)
-print(r1)
-print(mod_symmetric(19, 5))
+ml_dsa = MLDSA()
+public_key, private_key = ml_dsa.keygen()
+print(f'private_key: {private_key}')
+print(f'public_key: {public_key}')
+message = [1, 0, 1, 1, 0, 1, 0, 1]
+signature = ml_dsa.sign(private_key, message, b'1234')
+print(f'signature: {signature}')
+print(ml_dsa.verify(public_key, message, signature, b''))
+

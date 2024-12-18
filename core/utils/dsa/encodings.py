@@ -43,10 +43,9 @@ class Encodings:
         r0 = public_key[:32]
         z = public_key[32:]
         z = [z[i * 320: (i + 1) * 320] for i in range(self.const.K)]
-        print(f'z: {len(z)}')
-        t1 = [[0] * 256 for _ in range(self.const.K)]
+        t1 = VectorNTT(self.const)
         for i in range(self.const.K):
-            t1[i] = simple_bit_unpack(z[i], self.const.N)
+            t1[i].polynomial = simple_bit_unpack(z[i], self.const.N)
         return r0, t1
 
     def private_key_encode(self, r0, k, tr, s1, s2, t0):
@@ -90,6 +89,7 @@ class Encodings:
         Returns:
             Tuple: r0, k, tr, s1, s2, t0
         """
+
         r0 = private_key[:32]
         k = private_key[32: 64]
         tr = private_key[64: 128]
@@ -158,11 +158,12 @@ class Encodings:
         n = len(x) // self.const.L
         x = [x[i * n: (i + 1) * n] for i in range(self.const.L)]
         y = sigma[-(self.const.OMEGA + self.const.K):]
-        z = [[0] * 256 for _ in range(self.const.L)]
+        z = VectorNTT(self.const)
         for i in range(self.const.L):
-            z[i] = bit_unpack(x[i], self.const.GAMMA_1 - 1, self.const.GAMMA_1)
-
-        h = hint_bit_unpack(y, self.const.K, self.const.OMEGA)
+            z[i].polynomial = bit_unpack(x[i], self.const.GAMMA_1 - 1, self.const.GAMMA_1)
+        lst = hint_bit_unpack(y, self.const.K, self.const.OMEGA)
+        h = VectorNTT(self.const)
+        h.from_list(lst)
         return c_hat, z, h
 
     def w1_encode(self, w1):
@@ -175,7 +176,7 @@ class Encodings:
         Returns:
             A byte string of w1
         """
-        # assert w1.check(0, (self.const.Q - 1) // (2 * self.const.GAMMA_2) - 1), "Coefficients are too high"
+        assert w1.check(0, (self.const.Q - 1) // (2 * self.const.GAMMA_2) - 1), "Coefficients are too high"
 
         w1_ = b''
         for i in range(self.const.K):
