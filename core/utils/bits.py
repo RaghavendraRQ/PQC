@@ -144,6 +144,7 @@ def int_to_bits(integer, length):
         length: A Positive integer
 
     Returns:
+        str: A bit string y of given length
     """
     assert integer >= 0 and length >= 0, "Integer and  length must be positive."
 
@@ -165,7 +166,7 @@ def bits_to_int(bit_string, length):
         length: length of the bit_string
 
     Returns:
-        integer representing the bit array
+        int: integer representing the bit array
     """
     assert len(bit_string) == length >= 0, "Length should be positive and equals to the bit_string."
 
@@ -191,7 +192,7 @@ def int_to_bytes(integer, length):
 
     integer_ = integer
     y = []
-    for i in range(length):
+    for _ in range(length):
         y.append(integer_ % 256)
         integer_ //= 2
 
@@ -209,16 +210,19 @@ def coeff_from_three_bytes(b0, b1, b2, q=8380417):
         q: modulus
 
     Returns:
-        an integer % q or none
+        int: An integer % q or none
     """
 
     b2_ = int.from_bytes(b2)
     b1_ = int.from_bytes(b1)
     b0_ = int.from_bytes(b0)
+    # Setting the top bit of b2 to zero
     if b2_ > 127:
-        b2_ = b2_ - 128
-    integer = (2 ** 16) * b2_ + (2 ** 8) * b1_ + b0_
-    return integer if integer < q else None
+        b2_ -= 128
+
+    # z = 2^16.b2 + 2^8.b1 + b0
+    integer = 65536 * b2_ + 256 * b1_ + b0_
+    return integer if integer < q else None  # Reject Sampling
 
 
 def coeff_from_half_byte(b, ETA):
@@ -230,14 +234,13 @@ def coeff_from_half_byte(b, ETA):
         ETA: Constant for the algorithm
 
     Returns:
-        int b/w -eta to eta or None
+        int: An integer b/w -eta to eta or None
     """
     assert 0 <= b <= 15, "integer b should in range(0,16)."
 
-    if ETA == 2 and b < 15:
-        return 2 - b % 5
-    elif ETA == 4 and b < 9:
+    if ETA == 2 and b < 15:     # rejection sampling from -2,...,2
+        return 2 - (b % 5)
+    elif ETA == 4 and b < 9:    # rejection sampling from -4,...,4
         return 4 - b
 
     return None
-

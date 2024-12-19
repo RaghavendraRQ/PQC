@@ -86,6 +86,7 @@ class MLDSA_:
                     print(f'Edge case detected.Trying ...')
                     signer_response, hint = None, None
             counter += self.const.L
+        self.check = hint
         print(f'successful after {iterations} iterations')
         print('***********Prover side************')
         print(f'commitment: {commitment}')
@@ -125,6 +126,7 @@ class MLDSA_:
         c_hat_decoded = SHAKE256.new(repr_message + self.encoding.w1_encode(commitment)).read(self.const.LAMBDA // 4)
         print('***********Verifier side************')
         print(f'scaled_t1: {scaled_t1}')
+        print(f'commitment: {commitment}')
         print('************************************')
         return c_hat == c_hat_decoded and signer_response.norm() < (self.const.GAMMA_1 - self.const.BETA)
 

@@ -20,20 +20,22 @@ class Sample:
         Returns:
             List[int]: A Polynomial in R
         """
+        if not len(seed) == self.const.LAMBDA // 4:
+            raise ValueError(f"Length of the seed should be {self.const.LAMBDA // 4} bytes")
 
-        polynomial = [0] * 256
-        shake_256 = SHAKE256.new()
-        shake_256.update(seed)
+        sample_c = NTTModified(self.const)
+        shake_256 = SHAKE256.new(seed)
         s = shake_256.read(8)
         h = bytes_to_bits(s)
         for i in range(256 - self.const.TO, 256):
             j = int.from_bytes(shake_256.read(1))
             while j > i:
                 j = int.from_bytes(shake_256.read(1))
-            polynomial[i] = polynomial[j]
-            polynomial[j] = (-1) ** h[i + self.const.TO - 256]
+            sample_c[i] = sample_c[j]
+            sample_c[j] = (-1) ** h[i + self.const.TO - 256]
 
-        return NTTModified(self.const, polynomial)
+        assert sample_c.check(-1, 1), "Sample is not in the range [-1, 1]"
+        return sample_c
 
     def rej_ntt_polynomial(self, seed):
         """
@@ -44,18 +46,18 @@ class Sample:
         Returns:
             List: An element belongs to Tq
         """
-        assert len(seed) == 34, "Length of the random seed should be 34 bytes"
+        if not len(seed) == 34:
+            raise ValueError("Length of the random seed should be 34 bytes")
 
         j = 0
-        shake_128 = SHAKE128.new()
-        shake_128.update(seed)
-        a_cap = [0] * 256
+        shake_128 = SHAKE128.new(seed)
+        a_cap = NTTModified(self.const, ring=Ring.TQ)
         while j < 256:
             s = shake_128.read(3)
             a_cap[j] = coeff_from_three_bytes(s[0].to_bytes(), s[1].to_bytes(), s[2].to_bytes())
             if a_cap[j] is not None:
                 j += 1
-        return NTTModified(self.const, a_cap, Ring.TQ)
+        return a_cap
 
     def rej_bounded_polynomial(self, seed):
         """

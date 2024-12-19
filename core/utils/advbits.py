@@ -1,19 +1,25 @@
 from core.utils.bits import int_to_bits, bits_to_bytes, bytes_to_bits, bits_to_int
+from core.utils.overflow.stubborn import NTTModified, VectorNTT
+
+import core.constants.dsa44 as const
 
 
 def simple_bit_pack(polynomial, end):
     """
     Encodes a polynomial into a byte string
 
-    :param polynomial: A list of coefficients in range [0,end]
-    :param end: A Natural Number
+    Args:
+        polynomial: A list of coefficients in range [0,end]
+        end: A Natural Number
 
-    :return: A byte string of length 32*bit len(b)
+    Returns:
+        bytes: A byte string of length 32*bit_len(b)
     """
 
-    assert 0 <= all(element <= end for element in polynomial), "All Coefficients should be in range [0, end]"
-    assert end > 0, "end should be a natural number"
-    # assert len(polynomial) == 256, "Length of polynomial should be 256"
+    if not polynomial.check(0, end):
+        raise ValueError("All Coefficients should be in range [0, end].")
+    if not end > 0:
+        raise ValueError("End should be greater than 0.")
 
     z = ''
     for i in range(256):
@@ -24,29 +30,41 @@ def simple_bit_pack(polynomial, end):
 
 def simple_bit_unpack(byte_string, end):
     """
+    Reverses the procedure simple_bit_pack
 
-    :param byte_string:
-    :param end:
-    :return:
+    Args:
+        byte_string: Byte string of length 32*bit_len(end)
+        end: A Natural number
+
+    Returns:
+        NTTModified: Newly created NTT Object from byte string
     """
 
     c = end.bit_length()
-    assert len(byte_string) == 32 * c, f"Length of byte string should be {32 * c} not {len(byte_string)}"
+    if not len(byte_string) == 32 * c:
+        raise ValueError(f"Length of byte string should be {32 * c} not {len(byte_string)}")
+
     z = bytes_to_bits(byte_string)
-    w = []
+    w = NTTModified(const)
     for i in range(256):
-        w.append(bits_to_int(''.join([str(z[i*c + j]) for j in range(c)]), c))
+        w.polynomial[i] = (bits_to_int(''.join([str(z[i*c + j]) for j in range(c)]), c))
     return w
 
 
 def bit_pack(polynomial, start, end):
     """
+    Encodes a polynomial into a byte string
 
-    :param polynomial:
-    :param start:
-    :param end:
-    :return:
+    Args:
+        polynomial: A NTTModified Object
+        start: Starting coefficient > 0
+        end: Ending Coefficient > start
+
+    Returns:
+        bytes: A byte string of length 32*bit_len(b)
     """
+    if not polynomial.check(-start, end):
+        raise ValueError("All Coefficients should be in range [0, end].")
 
     z = ''
     for i in range(256):
@@ -57,29 +75,41 @@ def bit_pack(polynomial, start, end):
 
 def bit_unpack(byte_string, start, end):
     """
+    Reverses the procedure bit_pack
 
-    :param byte_string:
-    :param start:
-    :param end:
-    :return:
+    Args:
+        byte_string: Byte string of length 32*bit_len(end)
+        start: Starting coefficient > 0
+        end: Ending Coefficient > start
+
+    Returns:
+        NTTModified: Newly created NTT Object from byte string
     """
-
     c = (start + end).bit_length()
+    if not len(byte_string) == 32 * c:
+        raise ValueError(f"Length of byte string should be {32 * c} not {len(byte_string)}")
+
     z = bytes_to_bits(byte_string)
-    w = []
+    w = NTTModified(const)
     for i in range(256):
-        w.append(end - bits_to_int(''.join([str(z[i * c + j]) for j in range(c)]), c))
+        w.polynomial[i] = (end - bits_to_int(''.join([str(z[i * c + j]) for j in range(c)]), c))
     return w
 
 
 def hint_bit_pack(polynomial_vector, K, OMEGA):
     """
+    Encodes a NTT polynomial h with binary coefficients into a byte string
 
-    :param polynomial_vector:
-    :param K:
-    :param OMEGA:
-    :return:
+    Args:
+        polynomial_vector: A VectorNTT object
+        K: Algorithm specific constant
+        OMEGA: Algorithm specific constant
+
+    Returns:
+        bytes: A byte string of len OMEGA+K that encodes h
     """
+    if not polynomial_vector.check(0, 1):
+        raise ValueError('All the coefficients should be in binary')
 
     y = [0] * (K + OMEGA)
     index = 0
@@ -96,21 +126,28 @@ def hint_bit_pack(polynomial_vector, K, OMEGA):
 
 def hint_bit_unpack(byte_sting, K, OMEGA):
     """
+    Reverses the procedure of hint_bit_pack
 
-    :param byte_sting:
-    :param K:
-    :param OMEGA:
-    :return:
+    Args:
+        byte_sting: byte string of len K+OMEGA
+        K: Algorithm specific constant
+        OMEGA: Algorithm specific constant
+
+    Returns:
+        VectorNTT: A newly created VectorNTT object
     """
+    if not len(byte_sting) == K + OMEGA:
+        raise ValueError(f"byte string should be {K+OMEGA}. Not {len(byte_sting)}")
 
-    h = [[0] * 256 for _ in range(K)]
+    h = VectorNTT(const)
     index = 0
+    # Reconstruct h
     for i in range(K):
         if byte_sting[OMEGA + i] < index or byte_sting[OMEGA + i] > OMEGA:
             return None
         first = index
         while index < byte_sting[OMEGA + i]:
-            if index > first and byte_sting[index - 1] >= byte_sting[index]:
+            if index > first and byte_sting[index - 1] >= byte_sting[index]:    # Malformed Input
                 return None
             h[i][byte_sting[index]] = 1
             index += 1

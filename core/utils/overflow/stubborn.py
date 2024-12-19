@@ -103,6 +103,9 @@ class NTTModified:
     def __neg__(self):
         return NTTModified(self.config, [(-element) % self.config.Q for element in self.polynomial], self.ring)
 
+    def __eq__(self, other):
+        return self.polynomial == other.polynomial
+
     def __repr__(self):
         return f'NTT {self.ring}: len({len(self.polynomial)}), {self.polynomial[0:10]} ...'
 
@@ -166,6 +169,9 @@ class VectorNTT:
 
     def __neg__(self):
         return VectorNTT(self.config, [-polynomial for polynomial in self.vector], self.ring)
+
+    def __eq__(self, other):
+        return self.vector == other.vector
 
     def __mul__(self, other):
         if isinstance(other, NTTModified):

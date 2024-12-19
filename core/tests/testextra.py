@@ -1,11 +1,8 @@
-from core.algorithms.MLDSA import MLDSA
+import core.constants.dsa44 as const
+from core.utils.overflow.stubborn import NTTModified, VectorNTT
+from core.utils.dsa.sampling import Sample
+from Crypto.Random import get_random_bytes
 
-ml_dsa = MLDSA()
-public_key, private_key = ml_dsa.keygen()
-print(f'private_key: {private_key}')
-print(f'public_key: {public_key}')
-message = [1, 0, 1, 1, 0, 1, 0, 1]
-signature = ml_dsa.sign(private_key, message, b'1234')
-print(f'signature: {signature}')
-print(ml_dsa.verify(public_key, message, signature, b''))
-
+en = Sample(const)
+seed = get_random_bytes(const.LAMBDA // 4)
+print(en.sample_in_ball(seed))
