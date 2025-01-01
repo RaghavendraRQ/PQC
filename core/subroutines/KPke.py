@@ -22,13 +22,14 @@ class KPke:
         """
         Generates a pair of keys for encryption and decryption. which have length based on the implementation
 
-        :param d: a random 32 bytes for randomness
+        Args:
+            d:  a random 32 bytes for randomness
 
-        :return: Tuple of (encryption_key, decryption_key)
+        Returns:
+            Tuple of (encryption_key, decryption_key)
         """
         if self.encryption_key is not None and self.decryption_key is not None:
             return self.encryption_key, self.decryption_key
-
         assert len(d) == 32, f"Length of random bytes {32}bytes. Not {len(d)}"
 
         ro, sigma = sha3_512(d + self.k.to_bytes())
@@ -56,13 +57,14 @@ class KPke:
         """
         Generates a cipher text for the given message using encryption_key
 
-        :param message: (Byte) 32 byte message
-        :param randomness: (Byte) 32 byte random value
-        :param encryption_key: (Byte) encryption_key of size 384k + 32
+        Args:
+            message:  32 byte message
+            randomness: 32 byte random value
+            encryption_key: encryption_key of size 384k + 32
 
-        :return: (Byte) return a cipher text of length 384k + 32
+        Returns:
+             return a cipher text of length 384k + 32
         """
-
         assert len(message) == 32 and len(randomness) == 32, f"Length of message and randomness should be {32} bytes."
 
         self.encryption_key = encryption_key
@@ -99,11 +101,14 @@ class KPke:
         """
         Decrypts a cipher text to get original message back
 
-        :param cipher: a cipher text of length 384k + 32
-        :param decryption_key: a decryption_key corresponding to cipher text
+        Args:
+            cipher:  a cipher text of length 384k + 32
+            decryption_key: a decryption_key corresponding to cipher text
 
-        :return: a message of length 32 bytes
+        Returns:
+            a message of length 32 bytes
         """
+
         self.decryption_key = decryption_key
         first_half = cipher[0:32 * self.const.DU * self.k]
         second_half = cipher[32 * self.const.DU * self.k:]

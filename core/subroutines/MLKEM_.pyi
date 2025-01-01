@@ -1,14 +1,14 @@
-from typing import Tuple, Any
+from typing import Tuple, Any, Union
 from core.subroutines.KPke import KPke
 
 
-class ML_KEM_Internal:
+class MLKEM_:
+    const: Any
+    kpke: KPke
+    encapsulation_key: Union[bytes, None]
+    decapsulation_key: Union[bytes, None]
 
-    def __init__(self, const: Any) -> None:
-        self.const: Any = const
-        self.kpke: KPke = None
-        self.encapsulation_key: bytes = None
-        self.decapsulation_key: bytes = None
+    def __init__(self, const: Any) -> None: ...
 
     def keygen(self, d: bytes, z: bytes) -> Tuple[bytes, bytes]: ...
 

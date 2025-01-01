@@ -4,25 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="64dc7b8e-59ed-49f1-bf06-7d1335ead3e9" name="Changes" comment="Clean all the classes and add docs strings">
-      <change afterPath="$PROJECT_DIR$/core/algorithms/MLKEM.pyi" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/constants/kem1024.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/constants/kem512.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/constants/kem768.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/subroutines/KPke.pyi" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/subroutines/ML_KEM_Internal.pyi" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/utils/bits.pyi" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/utils/hash.pyi" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/utils/ntt.pyi" afterDir="false" />
+    <list default="true" id="64dc7b8e-59ed-49f1-bf06-7d1335ead3e9" name="Changes" comment="Adding more comments and fixing the issues">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/algorithms/ML_KEM.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/algorithms/MLKEM.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/constants.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/constants_.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/subroutines/KPke.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/subroutines/KPke.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/subroutines/ML_KEM_Internal.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/subroutines/ML_KEM_Internal.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/utils/bits.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/utils/bits.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/utils/ntt.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/utils/ntt.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/utils/shake.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/utils/hash.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -32,14 +15,32 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Python Script" />
         <option value="Python Stub" />
+        <option value="Python Script" />
       </list>
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="main" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RESET_MODE" value="HARD" />
   </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;sai2wwe&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;git@github.com:sai2wwe/PQC.git&quot;,
+    &quot;accountId&quot;: &quot;982bd717-1097-4fc5-a07a-6de7812412bd&quot;
+  }
+}</component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 1
 }</component>
@@ -56,12 +57,16 @@
     &quot;Python.ML_KEM_Internal.executor&quot;: &quot;Run&quot;,
     &quot;Python.bits.executor&quot;: &quot;Run&quot;,
     &quot;Python.constants.executor&quot;: &quot;Run&quot;,
+    &quot;Python.dsa44.executor&quot;: &quot;Run&quot;,
     &quot;Python.main.executor&quot;: &quot;Run&quot;,
     &quot;Python.sampleNtt.executor&quot;: &quot;Run&quot;,
     &quot;Python.shake.executor&quot;: &quot;Run&quot;,
+    &quot;Python.testbit.executor&quot;: &quot;Run&quot;,
+    &quot;Python.testextra.executor&quot;: &quot;Run&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/home/raghavendra/Myworkspace/CyberSecurity/PQC/PQC&quot;
+    &quot;git-widget-placeholder&quot;: &quot;mldsa&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/raghavendra/Myworkspace/CyberSecurity/PQC/PQC&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyIntegratedToolsModulesConfigurable&quot;
   }
 }</component>
   <component name="RecentsManager">
@@ -69,8 +74,8 @@
       <recent name="$PROJECT_DIR$" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.main">
-    <configuration name="KPke" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="Python.testextra">
+    <configuration name="MLKEM_" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="PQC" />
       <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -83,7 +88,7 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/core/subroutines/KPke.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/core/subroutines/MLKEM_.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -92,7 +97,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="MLKEM" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="dsa44" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="PQC" />
       <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -101,33 +106,11 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/core/algorithms" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/core/constants" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/core/algorithms/MLKEM.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="ML_KEM_Internal" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="PQC" />
-      <option name="ENV_FILES" value="" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/core/subroutines" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/core/subroutines/ML_KEM_Internal.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/core/constants/dsa44.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -158,12 +141,57 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="testbit" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="PQC" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/core/tests" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/core/tests/testbit.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="testextra" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="PQC" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/core/tests" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/core/tests/testextra.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.testextra" />
+        <item itemvalue="Python.testbit" />
+        <item itemvalue="Python.dsa44" />
         <item itemvalue="Python.main" />
-        <item itemvalue="Python.ML_KEM_Internal" />
-        <item itemvalue="Python.MLKEM" />
-        <item itemvalue="Python.KPke" />
+        <item itemvalue="Python.MLKEM_" />
       </list>
     </recent_temporary>
   </component>
@@ -248,7 +276,95 @@
       <option name="project" value="LOCAL" />
       <updated>1733504675531</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="Add pyi files for all modules and add constants dir for all the kem parmas">
+      <option name="closed" value="true" />
+      <created>1733592723516</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1733592723516</updated>
+    </task>
+    <task id="LOCAL-00011" summary="Partial Change comments into google style and complete optimizers.py algorithms and advbits.py">
+      <option name="closed" value="true" />
+      <created>1733748447955</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1733748447955</updated>
+    </task>
+    <task id="LOCAL-00012" summary="Complete encodings.py class with all the methods tested">
+      <option name="closed" value="true" />
+      <created>1733765543145</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1733765543145</updated>
+    </task>
+    <task id="LOCAL-00013" summary="Change the docs style to google. start sampling.py">
+      <option name="closed" value="true" />
+      <created>1733824612402</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1733824612402</updated>
+    </task>
+    <task id="LOCAL-00014" summary="create NTTModified, vector classes with best features">
+      <option name="closed" value="true" />
+      <created>1733937644327</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1733937644327</updated>
+    </task>
+    <task id="LOCAL-00015" summary="Create sign method in MLDSA_.py class. Want to fix it...">
+      <option name="closed" value="true" />
+      <created>1733997916255</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1733997916255</updated>
+    </task>
+    <task id="LOCAL-00016" summary="Working on sign. problem in decompose function and keygen">
+      <option name="closed" value="true" />
+      <created>1734113759701</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1734113759702</updated>
+    </task>
+    <task id="LOCAL-00017" summary="Fix sign method and signature is correctly calculated">
+      <option name="closed" value="true" />
+      <created>1734114305188</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1734114305188</updated>
+    </task>
+    <task id="LOCAL-00018" summary="Halfway through the verify function in MLDSA_.py. almost working in it">
+      <option name="closed" value="true" />
+      <created>1734115149216</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1734115149216</updated>
+    </task>
+    <task id="LOCAL-00019" summary="Complete MLDSA.py, want to fix verify method in MLDSA_.py.">
+      <option name="closed" value="true" />
+      <created>1734509044677</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1734509044677</updated>
+    </task>
+    <task id="LOCAL-00020" summary="Adding more comments and fixing the issues">
+      <option name="closed" value="true" />
+      <created>1734630157201</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1734630157201</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -256,7 +372,19 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="mldsa" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
           </value>
         </entry>
       </map>
@@ -272,6 +400,26 @@
     <MESSAGE value="Completed the main logic and same shared keys are produced" />
     <MESSAGE value="Fixed ML_KEM.py file from return mismatch" />
     <MESSAGE value="Clean all the classes and add docs strings" />
-    <option name="LAST_COMMIT_MESSAGE" value="Clean all the classes and add docs strings" />
+    <MESSAGE value="Add pyi files for all modules and add constants dir for all the kem parmas" />
+    <MESSAGE value="Partial Change comments into google style and complete optimizers.py algorithms and advbits.py" />
+    <MESSAGE value="Complete encodings.py class with all the methods tested" />
+    <MESSAGE value="Change the docs style to google. start sampling.py" />
+    <MESSAGE value="create NTTModified, vector classes with best features" />
+    <MESSAGE value="Create sign method in MLDSA_.py class. Want to fix it..." />
+    <MESSAGE value="Working on sign. problem in decompose function and keygen" />
+    <MESSAGE value="Fix sign method and signature is correctly calculated" />
+    <MESSAGE value="Halfway through the verify function in MLDSA_.py. almost working in it" />
+    <MESSAGE value="Complete MLDSA.py, want to fix verify method in MLDSA_.py." />
+    <MESSAGE value="Adding more comments and fixing the issues" />
+    <option name="LAST_COMMIT_MESSAGE" value="Adding more comments and fixing the issues" />
+  </component>
+  <component name="XDebuggerManager">
+    <watches-manager>
+      <configuration name="PythonConfigurationType">
+        <watch expression="matrix_vector" />
+        <watch expression="matrix_vector[3]" />
+        <watch expression="hint" language="Python" />
+      </configuration>
+    </watches-manager>
   </component>
 </project>
