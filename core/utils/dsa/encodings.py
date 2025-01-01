@@ -197,15 +197,20 @@ class Encodings:
         Encodes a polynomial vector commitment into a byte string
 
         Args:
-            commitment: Matrix of integers (K)
+            commitment: VectorNTT object (K)
 
         Returns:
             A byte string of w1
         """
-        if not commitment.check(0, (self.const.Q - 1) // (2 * self.const.GAMMA_2) - 1):
+        upper_limit = (self.const.Q - 1) // (2 * self.const.GAMMA_2) - 1
+        if not commitment.check(0, upper_limit):
             raise ValueError("All Coefficients should be in range [0, (Q-1) / (2 * GAMMA_2) - 1]")
 
         commitment_encoded = b''
+        # This is a bit tricky. We are encoding the commitment in a bit packed format.
         for i in range(self.const.K):
-            commitment_encoded += simple_bit_pack(commitment[i], (self.const.Q - 1) // (2 * self.const.GAMMA_2) - 1)
-        return commitment_encoded
+            commitment_encoded += simple_bit_pack(commitment[i], upper_limit)
+
+        assert len(commitment_encoded) == 32 * self.const.K * upper_limit.bit_length()
+        return commitment_encoded # size: 32 * K * bitlen((Q.bit_size - 1) // (2 * GAMMA_2) - 1)
+

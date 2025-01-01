@@ -4,17 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="64dc7b8e-59ed-49f1-bf06-7d1335ead3e9" name="Changes" comment="Complete MLDSA.py, want to fix verify method in MLDSA_.py.">
+    <list default="true" id="64dc7b8e-59ed-49f1-bf06-7d1335ead3e9" name="Changes" comment="Adding more comments and fixing the issues">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/subroutines/MLDSA_.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/subroutines/MLDSA_.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/tests/testextra.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/tests/testextra.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/utils/advbits.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/utils/advbits.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/utils/advbits.pyi" beforeDir="false" afterPath="$PROJECT_DIR$/core/utils/advbits.pyi" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/utils/bits.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/utils/bits.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/utils/dsa/encodings.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/utils/dsa/encodings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/utils/dsa/encodings.pyi" beforeDir="false" afterPath="$PROJECT_DIR$/core/utils/dsa/encodings.pyi" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/utils/overflow/stubborn.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/utils/overflow/stubborn.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/utils/overflow/stubborn.pyi" beforeDir="false" afterPath="$PROJECT_DIR$/core/utils/overflow/stubborn.pyi" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -365,7 +356,15 @@
       <option name="project" value="LOCAL" />
       <updated>1734509044677</updated>
     </task>
-    <option name="localTasksCounter" value="20" />
+    <task id="LOCAL-00020" summary="Adding more comments and fixing the issues">
+      <option name="closed" value="true" />
+      <created>1734630157201</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1734630157201</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -411,7 +410,8 @@
     <MESSAGE value="Fix sign method and signature is correctly calculated" />
     <MESSAGE value="Halfway through the verify function in MLDSA_.py. almost working in it" />
     <MESSAGE value="Complete MLDSA.py, want to fix verify method in MLDSA_.py." />
-    <option name="LAST_COMMIT_MESSAGE" value="Complete MLDSA.py, want to fix verify method in MLDSA_.py." />
+    <MESSAGE value="Adding more comments and fixing the issues" />
+    <option name="LAST_COMMIT_MESSAGE" value="Adding more comments and fixing the issues" />
   </component>
   <component name="XDebuggerManager">
     <watches-manager>

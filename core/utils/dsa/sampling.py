@@ -68,12 +68,13 @@ class Sample:
         Returns:
             List: An element belongs to R
         """
-        assert len(seed) == 66, "Length of the seed should be 66."
+        if not len(seed) == 66:
+            raise ValueError("Length of the random seed should be 66 bytes")
 
         j = 0
         shake_256 = SHAKE256.new()
         shake_256.update(seed)
-        a = [0] * 256
+        a = [0 for _ in range(256)]
         while j < 256:
             z = int.from_bytes(shake_256.read(1))
             z0 = coeff_from_half_byte(z % 16, self.const.ETA)
@@ -95,13 +96,13 @@ class Sample:
         Returns:
             Matrix of List: A_cap from Tq
         """
-        A = [VectorNTT(self.const) for _ in range(self.const.K)]
+        matrix_vector = [VectorNTT(self.const) for _ in range(self.const.K)]
         for i in range(self.const.K):
             for j in range(self.const.L):
                 seed_ = seed + int_to_bytes(j, 1) + int_to_bytes(i, 1)
-                A[i].vector[j] = self.rej_ntt_polynomial(seed_)
+                matrix_vector[i].vector[j] = self.rej_ntt_polynomial(seed_)
 
-        return A
+        return matrix_vector
 
     def expand_S(self, seed):
         """
@@ -112,6 +113,8 @@ class Sample:
         Returns:
             Tuple of Matrices: vectors s1, s2
         """
+        if not len(seed) == 64:
+            raise ValueError("Length of the seed should be 64 bytes")
 
         s1, s2 = [NTTModified(self.const) for _ in range(self.const.L)], [NTTModified(self.const) for _ in range(
             self.const.K)]
@@ -132,13 +135,13 @@ class Sample:
         Returns:
             VectorNTT: A vector from Rl
         """
-        assert len(seed) == 64, "Length of the seed should be 64 bytes."
+        if not len(seed) == 64:
+            raise ValueError("Length of the seed should be 64 bytes")
 
-        y = [NTTModified(self.const) for _ in range(self.const.L)]
+        y = VectorNTT(self.const)
         c = 1 + (self.const.GAMMA_1 - 1).bit_length()
         for i in range(self.const.L):
             seed_ = seed + int_to_bytes(i + coefficient, 2)
-            shake_256 = SHAKE256.new(seed_)
-            v = shake_256.read(32 * c)
-            y[i].polynomial = bit_unpack(v, self.const.GAMMA_1 - 1, self.const.GAMMA_1)
-        return VectorNTT(self.const, y)
+            v = SHAKE256.new(seed_).read(32 * c)
+            y[i] = bit_unpack(v, self.const.GAMMA_1 - 1, self.const.GAMMA_1)
+        return y

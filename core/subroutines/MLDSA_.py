@@ -38,7 +38,6 @@ class MLDSA_:
         public_key = self.encoding.public_key_encode(seed_A, t1)
         tr = SHAKE256.new(public_key).read(64)
         private_key = self.encoding.private_key_encode(seed_A, k, tr, s1, s2, t0)
-        print(f't (keygen): {t}')
         self.check = t
         return public_key, private_key
 
