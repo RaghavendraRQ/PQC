@@ -1,5 +1,7 @@
 from Crypto.Hash import SHAKE128, SHAKE256, SHA3_512, SHA3_256
 
+from core.constants.slh128 import SHAKE128_F
+
 
 def shake128(ctx, byte_lengths):
     """
@@ -76,3 +78,33 @@ def shake256(ctx):
     """
     shake_256 = SHAKE256.new(ctx)
     return shake_256.read(32)
+
+
+"""
+The following functions are used in the SLH-DSA scheme.
+The functions are defined in the SLH-DSA paper.
+All the functions are implemented using SHAKE256.
+
+"""
+
+def slh_H_msg(r, public_key_seed, public_key_root, message):
+    return SHAKE256.new(r + public_key_seed + public_key_root + message).read(8 * SHAKE128_F.M)
+
+
+def slh_prf(public_key_seed, private_key_seed, address):
+    return SHAKE256.new(public_key_seed + address.address + private_key_seed).read(8 * SHAKE128_F.N)
+
+
+def slh_prf_msg(private_key_proof, random, message):
+    return SHAKE256.new(private_key_proof + random + message).read(8 * SHAKE128_F.N)
+
+
+def slh_F(public_key_seed, address, message):
+    return SHAKE256.new(public_key_seed + address.address + message).read(8 * SHAKE128_F.N)
+
+
+def slh_H(public_key_seed, address, message):
+    return SHAKE256.new(public_key_seed + address.address + message).read(8 * SHAKE128_F.N)
+
+def slh_T(public_key_seed, address, message):
+    return SHAKE256.new(public_key_seed + address.address + message).read(8 * SHAKE128_F.N)

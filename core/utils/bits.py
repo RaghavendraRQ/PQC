@@ -214,6 +214,19 @@ def bytes_to_int(byte_string, length):
 
     return integer
 
+def truncate(byte_string, length):
+    """
+    Truncates a byte string to a given length
+
+    Args:
+        byte_string: byte_string to be truncated
+        length: length of the truncated byte_string
+
+    Returns:
+        bytes: truncated byte string
+    """
+    return byte_string[length:]
+
 
 def coeff_from_three_bytes(b0, b1, b2, q=8380417):
     """
