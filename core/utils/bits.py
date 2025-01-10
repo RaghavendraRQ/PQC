@@ -198,6 +198,22 @@ def int_to_bytes(integer, length):
 
     return bytes(y)
 
+def bytes_to_int(byte_string, length):
+    """
+    Computes the integer value expressed by a byte string using little-endian order
+
+    Args:
+        byte_string: byte_string to be converted
+
+    Returns:
+        int: integer representing the byte array
+    """
+    integer = 0
+    for i in range(length):
+        integer = 256 * integer + int.from_bytes(byte_string[i:i+1])
+
+    return integer
+
 
 def coeff_from_three_bytes(b0, b1, b2, q=8380417):
     """

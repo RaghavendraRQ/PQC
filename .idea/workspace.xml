@@ -4,12 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="64dc7b8e-59ed-49f1-bf06-7d1335ead3e9" name="Changes" comment="Adding more comments and fixing the issues">
-      <change afterPath="$PROJECT_DIR$/core/algorithms/SLHDSA.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/utils/slh/arithm.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/utils/slh/wots.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="64dc7b8e-59ed-49f1-bf06-7d1335ead3e9" name="Changes" comment="Implementing wots">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/utils/bits.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/utils/bits.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/utils/bits.pyi" beforeDir="false" afterPath="$PROJECT_DIR$/core/utils/bits.pyi" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/utils/slh/wots.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/utils/slh/wots.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -54,26 +53,26 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Python.KPke.executor": "Run",
-    "Python.ML_KEM.executor": "Run",
-    "Python.ML_KEM_Internal.executor": "Run",
-    "Python.bits.executor": "Run",
-    "Python.constants.executor": "Run",
-    "Python.dsa44.executor": "Run",
-    "Python.main.executor": "Run",
-    "Python.sampleNtt.executor": "Run",
-    "Python.shake.executor": "Run",
-    "Python.testbit.executor": "Run",
-    "Python.testextra.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "SLHDSA",
-    "last_opened_file_path": "/home/raghavendra/Myworkspace/CyberSecurity/PQC/PQC",
-    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyIntegratedToolsModulesConfigurable"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Python.KPke.executor&quot;: &quot;Run&quot;,
+    &quot;Python.ML_KEM.executor&quot;: &quot;Run&quot;,
+    &quot;Python.ML_KEM_Internal.executor&quot;: &quot;Run&quot;,
+    &quot;Python.bits.executor&quot;: &quot;Run&quot;,
+    &quot;Python.constants.executor&quot;: &quot;Run&quot;,
+    &quot;Python.dsa44.executor&quot;: &quot;Run&quot;,
+    &quot;Python.main.executor&quot;: &quot;Run&quot;,
+    &quot;Python.sampleNtt.executor&quot;: &quot;Run&quot;,
+    &quot;Python.shake.executor&quot;: &quot;Run&quot;,
+    &quot;Python.testbit.executor&quot;: &quot;Run&quot;,
+    &quot;Python.testextra.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;SLHDSA&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/raghavendra/Myworkspace/CyberSecurity/PQC/PQC&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyIntegratedToolsModulesConfigurable&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$" />
@@ -369,7 +368,15 @@
       <option name="project" value="LOCAL" />
       <updated>1734630157201</updated>
     </task>
-    <option name="localTasksCounter" value="21" />
+    <task id="LOCAL-00021" summary="Implementing wots">
+      <option name="closed" value="true" />
+      <created>1736426669844</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1736426669844</updated>
+    </task>
+    <option name="localTasksCounter" value="22" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -416,6 +423,7 @@
     <MESSAGE value="Halfway through the verify function in MLDSA_.py. almost working in it" />
     <MESSAGE value="Complete MLDSA.py, want to fix verify method in MLDSA_.py." />
     <MESSAGE value="Adding more comments and fixing the issues" />
-    <option name="LAST_COMMIT_MESSAGE" value="Adding more comments and fixing the issues" />
+    <MESSAGE value="Implementing wots" />
+    <option name="LAST_COMMIT_MESSAGE" value="Implementing wots" />
   </component>
 </project>
