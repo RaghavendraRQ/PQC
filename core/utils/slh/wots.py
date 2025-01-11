@@ -1,5 +1,6 @@
 from core.utils.bits import int_to_bytes, bytes_to_int
-
+from core.utils.hash import slh_F, slh_prf, slh_T
+from core.constants.slh128 import SHAKE128_F
 
 class Address:
     def __init__(self, address = bytes(32)):
@@ -111,9 +112,55 @@ class Address:
         self.address = self.address[:28] + self._tree_index
 
 
+class WOTS:
+
+    def __init__(self, public_key_seed, address):
+        self.public_key_seed = public_key_seed
+        self.address = address
+
+        self.private_key = None
+        self.public_key = None
+
+    def keygen(self, private_key_seed):
+        """
+        Generates a WOTS key pair for the given private key seed
+        Args:
+            private_key_seed: 32 byte private key seed
+        Returns:
+            public_key
+        """
+        private_key_address = Address(self.address.address)
+        private_key_address.type, private_key_address.key_pair = 5, self.address.key_pair
+
+        temp = [b'' for i in range(SHAKE128_F.LENGTH)]
+
+        for i in range(SHAKE128_F.LENGTH):
+            private_key_address.chain_address = i
+            self.private_key = slh_prf(self.public_key_seed, private_key_seed, private_key_address.address)
+            self.address.chain_address = i
+            temp[i] = chain(self.private_key, 0, SHAKE128_F.W - 1, self.public_key_seed, self.address)
+
+        wots_public_key_address = Address(self.address.address)
+        wots_public_key_address.type, wots_public_key_address.key_pair = 1, self.address.key_pair
+        self.public_key = slh_T(self.public_key_seed, wots_public_key_address.address, temp)
+
+
+
+
+
+
+
+
+
+
+
+
 def chain(byte_string, index, steps, public_key, address: Address):
     temp = byte_string
     for i in range(index, index + steps):
         address.hash_address = i
-        temp = 1
+        temp = slh_F(public_key, address.address, temp)
+
+    return temp
+
 

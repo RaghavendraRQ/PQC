@@ -92,7 +92,7 @@ def slh_H_msg(r, public_key_seed, public_key_root, message):
 
 
 def slh_prf(public_key_seed, private_key_seed, address):
-    return SHAKE256.new(public_key_seed + address.address + private_key_seed).read(8 * SHAKE128_F.N)
+    return SHAKE256.new(public_key_seed + address + private_key_seed).read(8 * SHAKE128_F.N)
 
 
 def slh_prf_msg(private_key_proof, random, message):
@@ -100,11 +100,12 @@ def slh_prf_msg(private_key_proof, random, message):
 
 
 def slh_F(public_key_seed, address, message):
-    return SHAKE256.new(public_key_seed + address.address + message).read(8 * SHAKE128_F.N)
+    return SHAKE256.new(public_key_seed + address + message).read(8 * SHAKE128_F.N)
 
 
 def slh_H(public_key_seed, address, message):
-    return SHAKE256.new(public_key_seed + address.address + message).read(8 * SHAKE128_F.N)
+    return SHAKE256.new(public_key_seed + address + message).read(8 * SHAKE128_F.N)
+
 
 def slh_T(public_key_seed, address, message):
-    return SHAKE256.new(public_key_seed + address.address + message).read(8 * SHAKE128_F.N)
+    return SHAKE256.new(public_key_seed + address + b''.join(message)).read(8 * SHAKE128_F.N)

@@ -4,12 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="64dc7b8e-59ed-49f1-bf06-7d1335ead3e9" name="Changes" comment="Implement Address Class Successfully">
-      <change afterPath="$PROJECT_DIR$/core/constants/slh128.py" afterDir="false" />
+    <list default="true" id="64dc7b8e-59ed-49f1-bf06-7d1335ead3e9" name="Changes" comment="Implement Hash Functions Successfully">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/utils/bits.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/utils/bits.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/utils/bits.pyi" beforeDir="false" afterPath="$PROJECT_DIR$/core/utils/bits.pyi" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/constants/slh128.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/constants/slh128.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/utils/hash.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/utils/hash.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/utils/hash.pyi" beforeDir="false" afterPath="$PROJECT_DIR$/core/utils/hash.pyi" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/utils/slh/wots.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/utils/slh/wots.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -386,7 +385,15 @@
       <option name="project" value="LOCAL" />
       <updated>1736501441873</updated>
     </task>
-    <option name="localTasksCounter" value="23" />
+    <task id="LOCAL-00023" summary="Implement Hash Functions Successfully">
+      <option name="closed" value="true" />
+      <created>1736503842559</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1736503842559</updated>
+    </task>
+    <option name="localTasksCounter" value="24" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -435,6 +442,7 @@
     <MESSAGE value="Adding more comments and fixing the issues" />
     <MESSAGE value="Implementing wots" />
     <MESSAGE value="Implement Address Class Successfully" />
-    <option name="LAST_COMMIT_MESSAGE" value="Implement Address Class Successfully" />
+    <MESSAGE value="Implement Hash Functions Successfully" />
+    <option name="LAST_COMMIT_MESSAGE" value="Implement Hash Functions Successfully" />
   </component>
 </project>

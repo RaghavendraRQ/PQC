@@ -9,8 +9,13 @@ class SHAKE128_S:
     K = 14
     LGW = 4
     M = 30
+    W = 16
     PUBLIC_KEY_BYTES = 32
     SIGNATURE_BYTES = 7856
+
+    LENGTH_1 = 32
+    LENGTH_2 = 3
+    LENGTH = 35
 
 class SHAKE128_F:
     N = 16
@@ -21,6 +26,10 @@ class SHAKE128_F:
     K = 33
     LGW = 4
     M = 34
+    W = 16
     PUBLIC_KEY_BYTES = 32
     SIGNATURE_BYTES = 17_088
 
+    LENGTH_1 = 32
+    LENGTH_2 = 3
+    LENGTH = 35
