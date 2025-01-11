@@ -108,4 +108,4 @@ def slh_H(public_key_seed, address, message):
 
 
 def slh_T(public_key_seed, address, message):
-    return SHAKE256.new(public_key_seed + address + b''.join(message)).read(8 * SHAKE128_F.N)
+    return SHAKE256.new(public_key_seed + address + message).read(8 * SHAKE128_F.N)

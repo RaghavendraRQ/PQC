@@ -1,5 +1,6 @@
 from core.utils.bits import int_to_bytes, bytes_to_int
 from core.utils.hash import slh_F, slh_prf, slh_T
+from core.utils.slh.arithm import base_2b
 from core.constants.slh128 import SHAKE128_F
 
 class Address:
@@ -142,17 +143,38 @@ class WOTS:
 
         wots_public_key_address = Address(self.address.address)
         wots_public_key_address.type, wots_public_key_address.key_pair = 1, self.address.key_pair
-        self.public_key = slh_T(self.public_key_seed, wots_public_key_address.address, temp)
+        self.public_key = slh_T(self.public_key_seed, wots_public_key_address.address, b''.join(temp))
+        return self.public_key
 
 
+    def sign(self, message, private_key_seed):
+        """
+        Generates a WOTS signature for the given message
+        Args:
+            message: 32 byte message
+            private_key_seed: 32 byte private key seed
+        Returns:
+            signature
+        """
+        c_sum = 0
+        msg = base_2b(message, SHAKE128_F.LGW, SHAKE128_F.LENGTH_1)
+        for i in range(SHAKE128_F.LENGTH_1):
+            c_sum += SHAKE128_F.W - 1 - msg[i]
 
+        c_sum <<= SHAKE128_F.LGW
+        msg += base_2b(int_to_bytes(c_sum, 2 ), SHAKE128_F.LGW, SHAKE128_F.LENGTH_2)    #TODO: Change the length 2
 
+        private_key_address = Address(self.address.address)
+        private_key_address.type, private_key_address.key_pair = 5, self.address.key_pair
 
+        signature = [b'' for i in range(SHAKE128_F.LENGTH)]
+        for i in range(SHAKE128_F.LENGTH):
+            private_key_address.chain_address = i
+            self.private_key = slh_prf(self.public_key_seed, private_key_seed, private_key_address.address)
+            self.address.chain_address = i
+            signature[i] = chain(self.private_key, 0, msg[i], self.public_key_seed, self.address)
 
-
-
-
-
+        return signature
 
 
 def chain(byte_string, index, steps, public_key, address: Address):
