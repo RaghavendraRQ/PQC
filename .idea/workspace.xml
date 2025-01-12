@@ -4,11 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="64dc7b8e-59ed-49f1-bf06-7d1335ead3e9" name="Changes" comment="Implement WOTS Public key generation (Half way through)">
-      <change afterPath="$PROJECT_DIR$/core/tests/slh.py" afterDir="false" />
+    <list default="true" id="64dc7b8e-59ed-49f1-bf06-7d1335ead3e9" name="Changes" comment="Implement WOTS signature generation completed">
+      <change afterPath="$PROJECT_DIR$/core/utils/slh/xmss.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/utils/hash.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/utils/hash.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/utils/hash.pyi" beforeDir="false" afterPath="$PROJECT_DIR$/core/utils/hash.pyi" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/tests/slh.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/tests/slh.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/utils/slh/wots.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/utils/slh/wots.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -65,6 +64,7 @@
     &quot;Python.main.executor&quot;: &quot;Run&quot;,
     &quot;Python.sampleNtt.executor&quot;: &quot;Run&quot;,
     &quot;Python.shake.executor&quot;: &quot;Run&quot;,
+    &quot;Python.slh.executor&quot;: &quot;Run&quot;,
     &quot;Python.testbit.executor&quot;: &quot;Run&quot;,
     &quot;Python.testextra.executor&quot;: &quot;Run&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
@@ -401,7 +401,15 @@
       <option name="project" value="LOCAL" />
       <updated>1736588217404</updated>
     </task>
-    <option name="localTasksCounter" value="25" />
+    <task id="LOCAL-00025" summary="Implement WOTS signature generation completed">
+      <option name="closed" value="true" />
+      <created>1736589241499</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1736589241499</updated>
+    </task>
+    <option name="localTasksCounter" value="26" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -452,6 +460,7 @@
     <MESSAGE value="Implement Address Class Successfully" />
     <MESSAGE value="Implement Hash Functions Successfully" />
     <MESSAGE value="Implement WOTS Public key generation (Half way through)" />
-    <option name="LAST_COMMIT_MESSAGE" value="Implement WOTS Public key generation (Half way through)" />
+    <MESSAGE value="Implement WOTS signature generation completed" />
+    <option name="LAST_COMMIT_MESSAGE" value="Implement WOTS signature generation completed" />
   </component>
 </project>

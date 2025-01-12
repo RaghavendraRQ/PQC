@@ -9,4 +9,5 @@ message = b'\x00' * 32
 signature = wots.sign(message, private_key)
 print(f'public_key: {public_key}')
 print(f'signature: {signature}')
+public_key_derived = wots.public_key_from_sign(signature, message)
 

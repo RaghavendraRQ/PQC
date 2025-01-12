@@ -176,6 +176,37 @@ class WOTS:
 
         return signature
 
+    def public_key_from_sign(self, signature, message):
+        """
+        Generates a public key from the given signature and message
+        Args:
+            signature: WOTS signature
+            message: N byte message
+
+        Returns:
+            public_key_signature
+        """
+        c_sum = 0
+        msg = base_2b(message, SHAKE128_F.LGW, SHAKE128_F.LENGTH_1)
+
+        for i in range(SHAKE128_F.LENGTH_1):
+            c_sum += SHAKE128_F.W - 1 - msg[i]
+
+        c_sum <<= SHAKE128_F.LGW
+        msg += base_2b(int_to_bytes(c_sum, 2), SHAKE128_F.LGW, SHAKE128_F.LENGTH_2)     #TODO: Change the length 2
+
+        temp = [b'' for i in range(SHAKE128_F.LENGTH)]
+        for i in range(SHAKE128_F.LENGTH):
+            self.address.chain_address = i
+            temp[i] = chain(signature[i], msg[i], SHAKE128_F.W - 1 - msg[i], self.public_key_seed, self.address)
+
+        wots_public_key_address = Address(self.address.address)
+        wots_public_key_address.type, wots_public_key_address.key_pair = 1, self.address.key_pair
+
+        public_key_signature = slh_T(self.public_key_seed, wots_public_key_address.address, b''.join(temp))
+
+        return public_key_signature
+
 
 def chain(byte_string, index, steps, public_key, address: Address):
     temp = byte_string
