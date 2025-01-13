@@ -8,6 +8,7 @@ This chaining is used to sign the root of the binary tree.
 """
 from core.utils.slh.wots import WOTS, Address
 from core.utils.hash import slh_H
+from core.constants.slh128 import SHAKE128_F
 
 
 class XMSS:
@@ -56,7 +57,7 @@ class XMSS:
         """
         if node_height == 0:
             self.address.type, self.address.key_pair = 0, node_index
-            self.wots = WOTS(self.public_key_seed, self.address)
+            self.wots = WOTS(self.public_key_seed, self.address)    # Change the address type to 0
             return self.wots.keygen(private_key_seed)
         else:
             left_node = self.node(private_key_seed, 2 * node_index, node_height - 1)
@@ -78,13 +79,57 @@ class XMSS:
         Returns:
             XMSS signature
         """
-        signature = [b'' for _ in range(self.address.h + 1)]
-        auth = [b'' for _ in range(self.address.h)]
-        for i in range(self.address.h):
-            auth[i] = self.node(private_key_seed, index >> i, i)
+        signature = [b'' for _ in range(SHAKE128_F.H_PRIME + 1)]
+        auth = [b'' for _ in range(SHAKE128_F.H_PRIME)]
+        for i in range(SHAKE128_F.H_PRIME):
+            k = index // (1 << i) ^ 1
+            auth[i] = self.node(private_key_seed, k, i)
 
-        signature[0] = self.wots.sign(message, private_key_seed)
-        for i in range(self.address.h):
-            signature[i + 1] = auth[i]
+        self.address.type, self.address.key_pair= 0, index
+        self.wots = WOTS(self.public_key_seed, self.address)    # Change the address type to 0
+
+        temp = self.wots.sign(message, private_key_seed)
+        print(f'temp: {temp}')
+        print(f'auth: {auth}')
+        signature[0] = b''.join(temp)
+        signature[1:] = auth
+
+
 
         return b''.join(signature)
+
+
+    def public_key_from_sign(self, index, signature, message):
+        """
+        Generates a public key from the signature
+        Args:
+            index:      index of the message
+            signature:  XMSS signature
+            message:    32 byte message
+
+        Returns:
+            public key
+        """
+        node = [bytes() for _ in range(2)]    # TODO: Check the size of the node default value: 2
+        self.address.type, self.address.key_pair = 0, index
+        self.wots = WOTS(self.public_key_seed, self.address)    # Change the address type to 0
+
+        sign = signature[0: SHAKE128_F.LENGTH * SHAKE128_F.N]
+        auth = signature[SHAKE128_F.LENGTH * SHAKE128_F.N:]
+        print(f'sign: {sign}')
+        print(f'auth_check: {auth}')
+        node[0] = self.wots.public_key_from_sign(sign, message)
+
+        self.address.type, self.address.key_pair = 2, index
+        for i in range(SHAKE128_F.H_PRIME):
+            self.address.tree_height = i + 1
+            if index // (1 << i) % 2 == 0:
+                node[1] = slh_H(self.public_key_seed, self.address.address, node[0] + auth[i])
+            else:
+                self.address.tree_index = (self.address.tree_index - 1) // 2   # Check this line
+                node[1] = slh_H(self.public_key_seed, self.address.address, auth[i] + node[0])
+
+            node[0] = node[1]
+        return node[0]
+
+
